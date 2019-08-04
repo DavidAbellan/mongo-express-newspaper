@@ -6,19 +6,18 @@ let columnSchema = mongoose.Schema({
         required:true,
     },
     highlights : {
-        type: String,
-        required:true
+        type: String
     },
     title : {
         type : String,
         required: true
     },
     author : {
-        type : Object,
+        type : String,
         required:true
     }
 
 })
 
-let opinion = mongoose.model('opinion_column',commentsSchema);
+let opinion = mongoose.model('opinion_column',columnSchema);
 module.exports = opinion;

@@ -5,7 +5,9 @@ var validator = require('validator');
 var flash = require('connect-flash');
 var upload = require('../config/multer');
 var categoryControl = require('../controllers/Category');
-var articleControl = require('../controllers/Article')
+var articleControl = require('../controllers/Article');
+var columnControl = require('../controllers/Column');
+var helpHighLight= require('../helpers/set_highlight')
 
 
 router.post('/', async function(req, res, next) {
@@ -23,7 +25,7 @@ router.post('/', async function(req, res, next) {
 
            } else {
                req.session.username = user.username;
-               req.session.id = user._id;
+               req.session.id_author = user._id;
                res.redirect('/');
            }
         
@@ -42,18 +44,16 @@ router.get('/new',async function(req,res,next){
 })
 router.post('/new', upload.array('file',3),async function(req,res,next){
     let art;
-    if (req.session.outstanding =="on"){
+    if (req.body.oustanding ==="on"){
         art = true
     } else {
         art = false
     }
-
-
     let post = new Object({
         title : req.body.title,
         main_text : req.body.main_text,
-        photo : req.body.file,
-        author_id: req.session.id,
+        photo : req.files,
+        author_id: req.session.id_author,
         outstanding : art,
         category_code : req.body.category
 
@@ -66,9 +66,23 @@ router.get('/column', function(req ,res){
     res.render('column');
 
 })
-router.post('/column', function(req,res){
-    console.log('BODY',req.body);
-    console.log('session',req.session);
+router.post('/column', async function(req,res){
+    let highlights = "";
+    console.log('columna',req.session);
+    if(req.body.highlights === ''){
+      highlights = helpHighLight.find_highlight(req.body.main_text);  
+    } else {
+        highlights = req.body.highlights; 
+    }
+
+   let col = new Object ({
+       main_text : req.body.main_text,
+       highlights,
+       title : req.body.title,
+       author : req.session.id_author
+   });
+   await columnControl.set_column(col);
+   res.redirect('/');
 })
 
 module.exports = router;

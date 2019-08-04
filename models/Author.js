@@ -17,7 +17,7 @@ let authorSchema = mongoose.Schema({
         trim : true
     },
     avatar : {
-        type : String
+        type : Array
     } ,
     root : {
         type : Boolean,

@@ -4,12 +4,14 @@ var crypt = require('bcrypt');
 async function get_authors(){
     return await modAuthor.find();
 }
-async function set_author(name,username,password){
+async function set_author(name,username,password,avatar,root){
     let crPassword = await crypt.hash(password,3)
     let author = await new modAuthor( {
         name,
         username ,
-        password : crPassword
+        avatar,
+        password : crPassword,
+        root
     }).save();
 }
 async function get_author(userc, password){

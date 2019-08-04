@@ -1,4 +1,3 @@
-
 var modArticle = require('../models/Article');
 
 async function get_articles(){
