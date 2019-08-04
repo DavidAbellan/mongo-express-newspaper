@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
+var rootRouter = require('./routes/super-admin')
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
 var flash = require('connect-flash');
@@ -42,6 +43,7 @@ app.use(flash());
 
 app.use('/', indexRouter);
 app.use('/admin', adminRouter);
+app.use('/super-admin', rootRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

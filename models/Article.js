@@ -19,7 +19,7 @@ let articleModel = mongoose.Schema({
         type : Date
     },
     author_id : {
-        type : Number
+        type : String
     },
     outstanding : {
         type : Boolean,

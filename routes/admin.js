@@ -5,6 +5,7 @@ var validator = require('validator');
 var flash = require('connect-flash');
 var upload = require('../config/multer');
 var categoryControl = require('../controllers/Category');
+var articleControl = require('../controllers/Article')
 
 
 router.post('/', async function(req, res, next) {
@@ -21,7 +22,8 @@ router.post('/', async function(req, res, next) {
                })
 
            } else {
-               req.session.username = username;
+               req.session.username = user.username;
+               req.session.id = user._id;
                res.redirect('/');
            }
         
@@ -34,15 +36,39 @@ router.get('/',function(req,res,next){
 })
 router.get('/new',async function(req,res,next){
     let categories = await categoryControl.get_categories()
-    console.log('categorias',categories);
     res.render('insertNew',{
         categories
     });
 })
 router.post('/new', upload.array('file',3),async function(req,res,next){
-    console.log('REQUEST :: ',req.body);
-    console.log('REQUEST :: ',req.files);
+    let art;
+    if (req.session.outstanding =="on"){
+        art = true
+    } else {
+        art = false
+    }
+
+
+    let post = new Object({
+        title : req.body.title,
+        main_text : req.body.main_text,
+        photo : req.body.file,
+        author_id: req.session.id,
+        outstanding : art,
+        category_code : req.body.category
+
+    })
+    await articleControl.set_article(post);
+    res.redirect('/');
     
+})
+router.get('/column', function(req ,res){
+    res.render('column');
+
+})
+router.post('/column', function(req,res){
+    console.log('BODY',req.body);
+    console.log('session',req.session);
 })
 
 module.exports = router;
