@@ -26,10 +26,16 @@ router.get('/category', function(req,res){
 router.post('/category', async function(req,res){
     let name = req.body.name;
     matcher.match(name).then(resp =>{
-        console.log('REspuesta',resp);
+        if (!resp) {
+            let catlenght = await long.large() + 1;
+            //llamar al controlador
+            
+        }else {
+            res.render('category');
+        }
     }).catch(console.error)
-    let catlenght = await long.large();
-    console.log('CATEFSDFASF',catlenght);
+
+    //code sería igual a catlenght + 1/ hay 2 14 y no hay 13
     
     //sacar el length de categories para añadirle el code
 })
