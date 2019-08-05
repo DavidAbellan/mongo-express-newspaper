@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var authorController = require('../controllers/Author')
+var authorController = require('../controllers/Author');
+var categoryController = require('../controllers/Category');
 var upload = require('../config/multer');
 var matcher = require('../helpers/match_category');
 var long = require('../helpers/category_length');
@@ -25,19 +26,19 @@ router.get('/category', function(req,res){
 
 router.post('/category', async function(req,res){
     let name = req.body.name;
+    let catlenght = await long.large() + 1;
     matcher.match(name).then(resp =>{
         if (!resp) {
-            let catlenght = await long.large() + 1;
-            //llamar al controlador
+            categoryController.set_category(name,catlenght).then(resp =>{
+                console.log(resp);
+            });
+            res.redirect('/');
             
         }else {
             res.render('category');
         }
     }).catch(console.error)
 
-    //code sería igual a catlenght + 1/ hay 2 14 y no hay 13
-    
-    //sacar el length de categories para añadirle el code
 })
 router.get('/create', function(req,res){
     res.render('author');

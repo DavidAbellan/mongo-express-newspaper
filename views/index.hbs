@@ -3,8 +3,13 @@
 {{/if}}
 
 {{#each articles}}
-<h1>{{title}}</h1>
-<p>{{main_text}}</p>
+
+{{#if outstanding}}
+{{> outstand this}}
+{{else}}
+{{> new this}}
+{{/if}}
+
 
 {{/each}}
 {{#each columns}}

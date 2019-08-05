@@ -1,6 +1,9 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
 }
 
 a {
@@ -9,4 +12,10 @@ a {
 
 select {
   display: block;
+}
+.outstanding {
+  width: 80vw;
+}
+.newformat {
+  margin-left: 1.5em;
 }
