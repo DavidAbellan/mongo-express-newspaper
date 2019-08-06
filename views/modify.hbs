@@ -1,0 +1,52 @@
+<form method="POST" action="/admin/modify">
+
+<h1>Artículos</h1>
+ <div class="input-field col s12">
+        <select name="article">
+            <option value="" disabled selected>Artículos</option>
+            {{#each articles}}
+             <option  value={{_id}}>{{title}}...{{upload_at}}</option>
+            {{/each}}
+
+
+        </select>
+ </div>
+ <div>
+      <button class="btn waves-effect waves-light" type="submit" name="erase">Borra
+    <i class="material-icons right">remove_circle</i>
+  </button>
+ </div>
+ <div>
+      <button class="btn waves-effect waves-light" type="submit" name="update">Modifica
+    <i class="material-icons right">repeat</i>
+  </button>
+ </div>
+ </form>
+
+
+<form method="POST" action="/admin/modify/">
+
+ <h1>Columnas</h1>
+  <div class="input-field col s12">
+        <select name="column">
+            <option value="" disabled selected>Columnas</option>
+            {{#each columns}}
+             <option value={{_id}}>{{title}}...{{upload_at}}</option>
+            {{/each}}
+
+
+        </select>
+    </div>
+    <div>
+      <button class="btn waves-effect waves-light" type="submit" name="erase">Borra
+    <i class="material-icons right">remove_circle</i>
+  </button>
+ </div>
+ <div>
+      <button class="btn waves-effect waves-light" type="submit" name="update">Modifica
+    <i class="material-icons right">repeat</i>
+  </button>
+ </div>
+
+</form>
+

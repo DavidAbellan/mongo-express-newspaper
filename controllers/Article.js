@@ -16,10 +16,17 @@ async function set_article(article) {
     }).save();
 
 }
-
+async function remove_article(id){
+    return await modArticle.findByIdAndDelete(id);
+}
+async function get_article_by_id(id){
+    return await modArticle.findById(id);
+}
 module.exports = {
     get_articles,
-    set_article
+    set_article,
+    remove_article,
+    get_article_by_id
 }
 
 

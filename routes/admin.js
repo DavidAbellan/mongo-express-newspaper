@@ -68,7 +68,6 @@ router.get('/column', function(req ,res){
 })
 router.post('/column', async function(req,res){
     let highlights = "";
-    console.log('columna',req.session);
     if(req.body.highlights === ''){
       highlights = helpHighLight.find_highlight(req.body.main_text);  
     } else {
@@ -83,6 +82,63 @@ router.post('/column', async function(req,res){
    });
    await columnControl.set_column(col);
    res.redirect('/');
+})
+router.get('/modify',async function (req,res){
+    let articles =  await articleControl.get_articles();
+    let columns = await columnControl.get_columns();
+    res.render('modify', {
+        articles,
+        columns
+
+    });
+
+});
+router.post('/modify',async function (req,res){
+if(req.body.article === undefined){
+    if(req.body.column === undefined){
+        res.redirect('/');
+    } else {
+        if(req.body.update === undefined){
+            await columnControl.remove_column(req.body.column);
+            res.redirect('/'); 
+          }
+          else {
+             let column = await columnControl.get_column_by_id(req.body.column); 
+             res.render('modColumn',{
+                 column
+             })
+          }
+    }
+} else {
+    if(req.body.update === undefined){ 
+           await articleControl.remove_article(req.body.article);
+               res.redirect('/');
+           } 
+           else {
+               let categories = await categoryControl.get_categories();
+               let article = await articleControl.get_article_by_id(req.body.article);
+               console.log(article._id);
+               res.render('modArticle', {
+                   categories,
+                   article
+               })
+
+           }
+    }
+
+});
+router.post('/modify/col/:id', async function(req,res){
+    
+    
+    let column = new Object ({
+        main_text : req.body.main_text,
+        title : req.body.title,
+        highlights : req.body.highlights
+    });
+    
+    await columnControl.update_column(req.params.id,column);
+    res.redirect('/');
+
 })
 
 module.exports = router;

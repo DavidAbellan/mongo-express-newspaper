@@ -19,3 +19,7 @@ select {
 .newformat {
   margin-left: 1.5em;
 }
+form {
+   display: flex;
+   flex-flow : column nowrap;
+}
