@@ -36,6 +36,7 @@ authorSchema.methods.getJWT = function() {
             if(error) {
                 reject(error);
             } else {
+                console.log('TOKEN',token);
                 resolve(token);
             }
 

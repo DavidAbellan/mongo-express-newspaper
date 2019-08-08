@@ -5,22 +5,23 @@ var categoryController = require('../controllers/Category');
 var upload = require('../config/multer');
 var matcher = require('../helpers/match_category');
 var long = require('../helpers/category_length');
+var isLogged = require('../middleware/isLogged')
 
-router.get('/users',  async function(req,res){
+router.get('/users',isLogged , async (req,res) =>{
    let authors = await authorController.get_authors();
    res.render('users', {
        authors
    })
 
 })
-router.get('/erase/:id', async function(req,res){
+router.get('/erase/:id', isLogged, async function(req,res){
     await authorController.remove_author(req.params.id);
     let authors = await authorController.get_authors();
     res.render('users', {
         authors
     })
  })
- router.post('/mod/:id', function(req,res){
+ router.post('/mod/:id',isLogged, function(req,res){
             console.log('REQRQRQ',req.body);
             //No funciona, no hay resultados en req.body
             res.redirect('/');
@@ -30,7 +31,7 @@ router.get('/erase/:id', async function(req,res){
 })
 
 
-router.get('/modify/:id', async function(req,res){
+router.get('/modify/:id',isLogged, async function(req,res){
     let author = await authorController.get_author_by_id(req.params.id);
     res.render('authmod', {
         author
@@ -41,11 +42,11 @@ router.get('/modify/:id', async function(req,res){
    
 
 
-router.get('/category', function(req,res){
+router.get('/category', isLogged, function(req,res){
     res.render('category');
 })
 
-router.post('/category', async function(req,res){
+router.post('/category',isLogged, async function(req,res){
     let name = req.body.name;
     let catlenght = await long.large() + 1;
     matcher.match(name).then(resp =>{
@@ -61,10 +62,10 @@ router.post('/category', async function(req,res){
     }).catch(console.error)
 
 })
-router.get('/create', function(req,res){
+router.get('/create', isLogged, function(req,res){
     res.render('author');
 } );
-router.post('/create', upload.single('file',1), async function(req,res){
+router.post('/create',isLogged, upload.single('file',1), async function(req,res){
     let name= req.body.name;
     let username = req.body.username;
     let password = req.body.password;

@@ -1,10 +1,12 @@
 module.exports = function isLogged (req,res,next){
-    if (req.session){
+        
+
+    if (req.session.username){
     next();
     }
     else 
     {
-    res.status(401).send(error);
+    res.send("NO TIENE PERMISOS");
     }
 
 }

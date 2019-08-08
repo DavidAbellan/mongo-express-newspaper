@@ -8,13 +8,12 @@ var categoryControl = require('../controllers/Category');
 var articleControl = require('../controllers/Article');
 var columnControl = require('../controllers/Column');
 var helpHighLight= require('../helpers/set_highlight');
-
+var isLogged = require('../middleware/isLogged');
 
 router.post('/', async function(req, res, next) {
   let username = req.body.username;
   let password = req.body.password;  
-  let eq = req.flash('Usuario Inexistente');
-  ;
+  
   if (!validator.isAscii(username)){
      }else {
         let user = await adminControl.get_author(username,password);
@@ -26,6 +25,7 @@ router.post('/', async function(req, res, next) {
            } else {
                req.session.username = user.username;
                req.session.id_author = user._id;
+               req.session.root = user.root;
                res.redirect('/');
            }
         
@@ -42,7 +42,7 @@ router.get('/new' ,async function(req,res,next){
         categories
     });
 })
-router.post('/new', upload.array('file',3),async function(req,res,next){
+router.post('/new', isLogged, upload.array('file',3),async function(req,res,next){
     let art;
     if (req.body.oustanding ==="on"){
         art = true
@@ -66,7 +66,7 @@ router.get('/column', function(req ,res){
     res.render('column');
 
 })
-router.post('/column', async function(req,res){
+router.post('/column', isLogged, async(req,res) =>{
     let highlights = "";
     if(req.body.highlights === ''){
       highlights = helpHighLight.find_highlight(req.body.main_text);  
@@ -83,7 +83,7 @@ router.post('/column', async function(req,res){
    await columnControl.set_column(col);
    res.redirect('/');
 })
-router.get('/modify',async function (req,res){
+router.get('/modify',isLogged, async function (req,res){
     let articles =  await articleControl.get_articles();
     let columns = await columnControl.get_columns();
     res.render('modify', {
@@ -93,7 +93,7 @@ router.get('/modify',async function (req,res){
     });
 
 });
-router.post('/modify',async function (req,res){
+router.post('/modify',isLogged, async function (req,res){
 if(req.body.article === undefined){
     if(req.body.column === undefined){
         res.redirect('/');
@@ -117,7 +117,6 @@ if(req.body.article === undefined){
            else {
                let categories = await categoryControl.get_categories();
                let article = await articleControl.get_article_by_id(req.body.article);
-               console.log(article._id);
                res.render('modArticle', {
                    categories,
                    article
@@ -127,7 +126,7 @@ if(req.body.article === undefined){
     }
 
 });
-router.post('/modify/col/:id', async function(req,res){
+router.post('/modify/col/:id', isLogged, async function(req,res){
     
     
     let column = new Object ({
@@ -140,8 +139,7 @@ router.post('/modify/col/:id', async function(req,res){
     res.redirect('/');
 
 })
-router.post('/modify/art/:id', upload.array('file',3),async function(req,res){
-    console.log(req.body);
+router.post('/modify/art/:id', isLogged, upload.array('file',3),async function(req,res){
     let art;
     if (req.body.oustanding ==="on"){
         art = true
