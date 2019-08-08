@@ -1,5 +1,15 @@
 var modArticle = require('../models/Article');
 
+async function update_article(id,article){
+    await modArticle.update({_id : id}, {
+        title : article.title,
+        main_text : article.main_text,
+        photo : article.photo,
+        outstanding : article.outstanding,
+        category_code : article.category_code
+    })
+}
+
 async function get_articles(){
     return await modArticle.find();
 }
@@ -26,7 +36,8 @@ module.exports = {
     get_articles,
     set_article,
     remove_article,
-    get_article_by_id
+    get_article_by_id,
+    update_article
 }
 
 

@@ -10,6 +10,8 @@ var adminRouter = require('./routes/admin');
 var flash = require('connect-flash');
 var hbs = require('hbs');
 var dbConnection = require('./config/configMongo');
+var logged = require('./middleware/isLogged.js');
+
 dbConnection.connection();
 
 var app = express();
@@ -30,20 +32,23 @@ app.use( session( {
   name : 'CookieFN',
   resave : true,
   saveUninitialized : true
-
-
+  
+  
 }));
 app.use(function(req, res, next){
   res.locals.session = req.session;
- 
+  
   next();
 });
 
+
+app.use(logged);
+
 app.use(flash());
 
-app.use('/', indexRouter);
-app.use('/admin', adminRouter);
-app.use('/super-admin', rootRouter);
+app.use('/',indexRouter);
+app.use('/admin',logged, adminRouter);
+app.use('/super-admin',logged, rootRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

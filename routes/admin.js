@@ -7,7 +7,7 @@ var upload = require('../config/multer');
 var categoryControl = require('../controllers/Category');
 var articleControl = require('../controllers/Article');
 var columnControl = require('../controllers/Column');
-var helpHighLight= require('../helpers/set_highlight')
+var helpHighLight= require('../helpers/set_highlight');
 
 
 router.post('/', async function(req, res, next) {
@@ -36,7 +36,7 @@ router.post('/', async function(req, res, next) {
 router.get('/',function(req,res,next){
     res.render('admin');
 })
-router.get('/new',async function(req,res,next){
+router.get('/new' ,async function(req,res,next){
     let categories = await categoryControl.get_categories()
     res.render('insertNew',{
         categories
@@ -139,6 +139,27 @@ router.post('/modify/col/:id', async function(req,res){
     await columnControl.update_column(req.params.id,column);
     res.redirect('/');
 
+})
+router.post('/modify/art/:id', upload.array('file',3),async function(req,res){
+    console.log(req.body);
+    let art;
+    if (req.body.oustanding ==="on"){
+        art = true
+    } else {
+        art = false
+    }
+    let post = new Object({
+        title : req.body.title,
+        main_text : req.body.main_text,
+        photo : req.files,
+        author_id: req.session.id_author,
+        outstanding : art,
+        category_code : req.body.category
+
+    })
+    await articleControl.update_article(req.params.id,post);
+
+    res.redirect('/');
 })
 
 module.exports = router;

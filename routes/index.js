@@ -4,6 +4,7 @@ var article_control = require('../controllers/Article');
 var column_control = require('../controllers/Column');
 var formatArt = require('../helpers/format_article');
 
+
 /* GET home page. */
 router.get('/', async function(req, res, next) {
     let user = req.session.username;

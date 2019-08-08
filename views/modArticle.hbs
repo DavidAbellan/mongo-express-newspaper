@@ -16,13 +16,16 @@
     </div>
     <p>
         <label>
-            <input type="checkbox" value={{oustanding}} name="oustanding" class="filled-in" />
+            <input type="checkbox" name="oustanding"  class="filled-in" />
             <span>Destacada</span>
         </label>
     </p>
 
     <div class="input-field col s6">
-        <input value ={{photo}} name="file" type="file" class="validate" multiple>
+        {{#each photo}}
+        <img src="/images/{{filename}}" class="thumbnail"/>
+        {{/each}}
+        <input  name="file" type="file" class="validate" multiple>
         <label for="file"></label>
     </div>
 
