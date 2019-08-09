@@ -27,7 +27,7 @@ let authorSchema = mongoose.Schema({
         type : Array 
     }
 })
-authorSchema.methods.getJWT = function() {
+/* authorSchema.methods.getJWT = function() {
     return new Promise ((resolve,reject) => {
         let admin = {
             username
@@ -43,6 +43,6 @@ authorSchema.methods.getJWT = function() {
         })
     })
 }
-
+ */
 let author = mongoose.model('author',authorSchema);
 module.exports = author;

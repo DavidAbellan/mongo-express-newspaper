@@ -9,6 +9,8 @@ var articleControl = require('../controllers/Article');
 var columnControl = require('../controllers/Column');
 var helpHighLight= require('../helpers/set_highlight');
 var isLogged = require('../middleware/isLogged');
+var token = require('../services/token');
+var LS = require('local-storage');
 
 router.post('/', async function(req, res, next) {
   let username = req.body.username;
@@ -23,9 +25,13 @@ router.post('/', async function(req, res, next) {
                })
 
            } else {
+
                req.session.username = user.username;
                req.session.id_author = user._id;
                req.session.root = user.root;
+               let tokenService = new token();
+               let jwt = tokenService.generateToken(user);
+               LS.set('token',jwt);
                res.redirect('/');
            }
         
@@ -36,7 +42,7 @@ router.post('/', async function(req, res, next) {
 router.get('/',function(req,res,next){
     res.render('admin');
 })
-router.get('/new' ,async function(req,res,next){
+router.get('/new' ,isLogged, async function(req,res,next){
     let categories = await categoryControl.get_categories()
     res.render('insertNew',{
         categories
@@ -62,7 +68,7 @@ router.post('/new', isLogged, upload.array('file',3),async function(req,res,next
     res.redirect('/');
     
 })
-router.get('/column', function(req ,res){
+router.get('/column',isLogged, function(req ,res){
     res.render('column');
 
 })
