@@ -1,23 +1,66 @@
+@import url('https://fonts.googleapis.com/css?family=Saira+Stencil+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Pontano+Sans&display=swap');
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
- 
-}
+  background-color: #F9F8B6;
 
-a {
-  color: #00B7FF;
 }
 
 select {
   display: block;
 }
-.outstanding {
-  width: 80vw;
-}
-.newformat {
-  margin-left: 1.5em;
-}
+
 form {
-   display: flex;
-   flex-flow : column nowrap;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.outstanding {
+  width: 90vw
+}
+
+.header {
+  height: 90vh;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
+h1 {
+  font-family: 'Saira Stencil One'
+}
+
+.columnist {
+  border-radius: 25% !important;
+  margin: 3em 3em 3em 3em;
+  height: 10em;
+  width: 10em;
+}
+
+p {
+  font-family: 'Pontano Sans';
+  font-size: 16px;
+}
+
+h2 {
+  color: #FFFFFF;
+text-shadow: 2px 2px 0 #000000, 2px -2px 0 #000000, -2px 2px
+ 0 #000000, -2px -2px 0 #000000, 2px 0px 0 #000000, 0px 2px 0 #000000, -2px 0px 
+ 0 #000000, 0px -2px 0 #000000;
+  font-size: 3em;
+
+}
+
+@media (max-width : 900px) {
+  h2 {
+    font-size: 50px !important;
+  }
+}
+@media (max-width : 600px) {
+  h2 {
+    font-size: 30px !important;
+  }
 }

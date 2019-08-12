@@ -13,6 +13,8 @@ var token = require('../services/token');
 var LS = require('local-storage');
 
 router.post('/', async function(req, res, next) {
+    let categories = await categoryControl.get_categories()
+  
   let username = req.body.username;
   let password = req.body.password;  
   
@@ -21,7 +23,7 @@ router.post('/', async function(req, res, next) {
         let user = await adminControl.get_author(username,password);
            if (!user) {
                res.render('admin', {
-                   eq
+                   eq, categories
                })
 
            } else {
@@ -39,7 +41,8 @@ router.post('/', async function(req, res, next) {
 
     });
 
-router.get('/',function(req,res,next){
+router.get('/', async function(req,res,next){
+
     res.render('admin');
 })
 router.get('/new' ,isLogged, async function(req,res,next){

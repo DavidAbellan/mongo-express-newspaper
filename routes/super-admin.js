@@ -23,6 +23,7 @@ router.get('/erase/:id', isLogged, async function(req,res){
  })
  router.post('/mod/:id',isLogged, function(req,res){
             console.log('REQRQRQ',req.body);
+            console.log('ENTRA ENTRA ENTRA');
             //No funciona, no hay resultados en req.body
             res.redirect('/');
 
