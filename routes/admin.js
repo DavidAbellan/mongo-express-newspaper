@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var adminControl = require('../controllers/Author');
 var validator = require('validator');
-var flash = require('connect-flash');
 var upload = require('../config/multer');
 var categoryControl = require('../controllers/Category');
 var articleControl = require('../controllers/Article');
@@ -58,6 +57,7 @@ router.post('/new', isLogged, upload.array('file',3),async function(req,res,next
     } else {
         art = false
     }
+    if (validator.isInt(req.body.category) ) {
     let post = new Object({
         title : req.body.title,
         main_text : req.body.main_text,
@@ -67,7 +67,9 @@ router.post('/new', isLogged, upload.array('file',3),async function(req,res,next
         category_code : req.body.category
 
     })
+
     await articleControl.set_article(post);
+}
     res.redirect('/');
     
 })
@@ -76,6 +78,7 @@ router.get('/column',isLogged, function(req ,res){
 
 })
 router.post('/column', isLogged, async(req,res) =>{
+  
     let highlights = "";
     if(req.body.highlights === ''){
       highlights = helpHighLight.find_highlight(req.body.main_text);  
@@ -90,6 +93,7 @@ router.post('/column', isLogged, async(req,res) =>{
        author : req.session.id_author
    });
    await columnControl.set_column(col);
+  
    res.redirect('/');
 })
 router.get('/modify',isLogged, async function (req,res){
@@ -136,7 +140,8 @@ if(req.body.article === undefined){
 
 });
 router.post('/modify/col/:id', isLogged, async function(req,res){
-    
+    if(validator.isAlpha(req.body.main_text) && validator.isAlpha(req.body.title)){
+
     
     let column = new Object ({
         main_text : req.body.main_text,
@@ -144,11 +149,14 @@ router.post('/modify/col/:id', isLogged, async function(req,res){
         highlights : req.body.highlights
     });
     
-    await columnControl.update_column(req.params.id,column);
+    await columnControl.update_column(req.params.id,column)
+};
     res.redirect('/');
 
 })
 router.post('/modify/art/:id', isLogged, upload.array('file',3),async function(req,res){
+    if (validator.isAlpha(req.body.title) && validator.isAlpha(req.body.main_text) &&
+    validator.isInt(req.body.category) && req.files) {
     let art;
     if (req.body.oustanding ==="on"){
         art = true
@@ -165,6 +173,7 @@ router.post('/modify/art/:id', isLogged, upload.array('file',3),async function(r
 
     })
     await articleControl.update_article(req.params.id,post);
+}
 
     res.redirect('/');
 })

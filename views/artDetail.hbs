@@ -1,0 +1,9 @@
+{{#if article.photo}}
+{{#each article.photo}}
+<img src="/images/{{filename}}"/>
+{{/each}}
+{{/if}}
+<p>{{time}}</p>
+<p>{{category.name}}</p>
+<p>{{article.main_text}}</p>
+<p>{{author.username}}</p>

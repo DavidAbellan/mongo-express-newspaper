@@ -7,8 +7,14 @@
     <div class="col s12 m7 ">
       <div class="card outstanding">
         <div class="card-image">
+          {{#if photo}}
           <img src="{{photo}}" class="outstanding s12">
-          <span class="card-title"><h2>{{title}}</h2></span>
+          <span class="card-title"><a href="/art/{{id}}"><h2>{{title}}</h2></a></span>
+          {{else}}
+          <span class="card-title"><a href="/art/{{id}}"><h2>{{title}}</h2></a></span>
+          {{/if}}
+
+
         </div>
         
       </div>

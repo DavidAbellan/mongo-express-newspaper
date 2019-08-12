@@ -1,6 +1,8 @@
 var modArticle = require('../models/Article');
 
+
 async function update_article(id,article){
+    
     await modArticle.update({_id : id}, {
         title : article.title,
         main_text : article.main_text,
@@ -14,6 +16,7 @@ async function get_articles(){
     return await modArticle.find();
 }
 async function set_article(article) {
+  
     let newArticle = await new modArticle ({
         title : article.title,
         main_text : article.main_text,

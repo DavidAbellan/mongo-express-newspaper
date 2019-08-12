@@ -7,6 +7,14 @@ body {
   background-color: #F9F8B6;
 
 }
+a {
+  text-decoration: none;
+  
+  
+}
+a:hover {
+  text-decoration-line: underline;
+}
 
 select {
   display: block;
@@ -41,8 +49,9 @@ h1 {
 }
 
 p {
+  text-decoration-color: #000000;
   font-family: 'Pontano Sans';
-  font-size: 16px;
+  font-size: 40px;
 }
 
 h2 {
