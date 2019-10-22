@@ -1,9 +1,18 @@
+<div class="body-article">
 {{#if article.photo}}
 {{#each article.photo}}
+<div>
 <img src="/images/{{filename}}"/>
+</div>
 {{/each}}
 {{/if}}
-<p>{{time}}</p>
-<p>{{category.name}}</p>
+<div class="horizontal-blue"></div>
+<p class="article-time" >{{time}}</p>
+<p class="article-category">{{category.name}}</p>
+<div class="horizontal-blue"></div>
 <p>{{article.main_text}}</p>
-<p>{{author.username}}</p>
+<p class="article-author">{{author.username}}</p>
+<br>
+<div class="horizontal-blue"></div>
+
+</div>

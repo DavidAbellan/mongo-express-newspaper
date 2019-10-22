@@ -1,11 +1,8 @@
-<div>
-  <div class="col m9">  
-  <h1>Old Fake News</h1>
-  </div>
+ {{>header}}
 
-  <div>
- <div class="input-field col s12">
-        <select name="category">
+  <div class="search-container">
+ <div class="input-field col s12 pinput">
+        <select class="category-select" name="category">
             <option value="" disabled selected>Categorías</option>
             {{#each categories}}
             <option value={{code}}>{{name}}</option>
@@ -18,25 +15,23 @@
 
         </select>
     </div>
+  <input class="search" type="text"></input>
 
-
-
+   <p class="h99">{{timer}}</p>
 </div>
-</div>
+     {{#if user}}
+     {{> author_bar }}
+     {{/if}}
+        
+          <div class="section col s12 l12">
+           {{#each articles}}
 
-{{#if user}}
-{{> author_bar }}
-{{/if}}
-<div class="divider"></div>
-<div class="section col s12 l12">
-{{#each articles}}
-
-{{#if outstanding}}
-{{> outstand this}}
-{{else}}
-{{> new this}}
-{{/if}}
-</div>
+              {{#if outstanding}}
+               {{> outstand this}}
+              {{else}}
+               {{> new this}}
+             {{/if}}
+        </div>
 
 {{/each}}
 {{#each columns}}

@@ -1,12 +1,63 @@
 @import url('https://fonts.googleapis.com/css?family=Saira+Stencil+One&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Pontano+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap');
 
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: #F9F8B6;
+  background-color: white;
+  margin-left: 30px !important;
 
 }
+.body-article{
+  padding-top: 12em;
+  margin: 2px 2px 0 2px;
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100vw;
+  height: 100vh;
+}
+.body-article p {
+  width: 80%;
+  margin-left: 30px;
+}
+.body-article img {
+  margin-left: 2em;
+}
+.article-time{
+  font-size: 10px;
+}
+.article-category{
+  font-size:20px;
+  font-weight: bolder;
+}
+.article-author {
+  font-size:16px;
+}
+
+.horizontal-blue {
+  align-self: center;
+  margin-top:2em;
+  width: 90vw;
+  min-height: 3px;
+  background: blue;
+}
+
+.pinput {
+  margin-left: 80px !important;
+  width: 50% !important;
+}
+.search {
+  width: 30% !important;
+  margin-left: 6px !important;
+  margin-top: 8px !important;
+
+
+}
+.search-container {
+  display: flex;
+  flex-flow: row wrap;
+}
+
 a {
   text-decoration: none;
   
@@ -30,15 +81,49 @@ form {
 }
 
 .header {
-  height: 90vh;
+  height: 100vh;
   width: 100%;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
 }
+.h99 {
+  font-size: 11px;
+}
+
+.header-style {
+  margin-left: -30px !important;
+  margin-right: -30px;
+  width: 100vw;
+  height: 300px;
+  display: flex;
+  flex-flow:column nowrap;
+  align-items: center;
+  justify-content: center;
+}
+.header-style h1 {
+  flex:2;
+ 
+}
+select {
+  color: blue;
+}
+.subtitle{
+  display: flex;
+  justify-content: center;
+  background-color: blue;
+  width: 100vw;
+  height: 80px;
+  flex: 1;
+}
+.subtitle p {
+  font-family: 'Pontano Sans';
+  color: #FFFFFF;
+  font-size: 32px;
+}
 
 h1 {
-  font-family: 'Saira Stencil One'
+  font-family: 'Permanent Marker', cursive;
 }
 
 .columnist {

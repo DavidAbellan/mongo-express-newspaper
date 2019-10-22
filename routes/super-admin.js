@@ -21,7 +21,7 @@ router.get('/erase/:id', isLogged, async function(req,res){
         authors
     })
  })
- router.post('/mod/:id',isLogged, function(req,res){
+ router.post('/mod/:id',isLogged,upload.single('file',1),async function(req,res){
             console.log('REQRQRQ',req.body);
             console.log('ENTRA ENTRA ENTRA');
             //No funciona, no hay resultados en req.body

@@ -22,7 +22,7 @@ router.post('/', async function(req, res, next) {
         let user = await adminControl.get_author(username,password);
            if (!user) {
                res.render('admin', {
-                   eq, categories
+                    categories
                })
 
            } else {

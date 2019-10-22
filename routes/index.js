@@ -7,10 +7,12 @@ var authorController = require('../controllers/Author');
 var formatArt = require('../helpers/format_article');
 var formatCol = require('../helpers/format_column');
 var formatHour = require('../helpers/format_hour');
+var moment = require('moment');
 
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
+    let timer = moment().format('MMMM Do YYYY, h:mm:ss a');
     let columns = await column_control.get_columns();
      formatCol.format(columns).then(resp => {
          columns = resp
@@ -22,6 +24,7 @@ router.get('/', async function(req, res, next) {
     articles = formatArt.format(articles);
     if (!user){
     res.render('index', {
+        timer,
         articles,
         columns,
         categories,
@@ -29,6 +32,7 @@ router.get('/', async function(req, res, next) {
         })} 
     else {
         res.render('index', {
+            timer,
             articles,
             columns,
             user,
