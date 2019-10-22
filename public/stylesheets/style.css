@@ -58,6 +58,44 @@ body {
   flex-flow: row wrap;
 }
 
+.column-style {
+  width: 100vw !important;
+  height: 100vh !important;
+  padding-top: 2250px;
+}
+.author-box{
+  display: flex;
+  flex-flow: row wrap;
+  justify-items: flex-start;
+
+}
+.author-box img {
+  margin-right: 13px;
+  border-radius: 10%;
+}
+.little-author{
+  padding-top: 45px;
+  font-size: 12px;
+  margin-left: 13px;
+
+}
+.author-naming {
+  font-size: 12px;
+  margin-left: 12px;
+}
+.opinion-column{
+  width: 80%;
+  margin-left: 13px;
+}
+.icon {
+  color: blue;
+}
+.new {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 a {
   text-decoration: none;
   
