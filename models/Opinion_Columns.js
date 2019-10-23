@@ -15,7 +15,11 @@ let columnSchema = mongoose.Schema({
     author : {
         type : String,
         required:true
+    },
+    upload_at : {
+        type : Date
     }
+
 
 })
 

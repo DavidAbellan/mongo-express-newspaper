@@ -90,7 +90,8 @@ router.post('/column', isLogged, async(req,res) =>{
        main_text : req.body.main_text,
        highlights,
        title : req.body.title,
-       author : req.session.id_author
+       author : req.session.id_author,
+       upload_at : Date.now()
    });
    await columnControl.set_column(col);
   
@@ -155,8 +156,10 @@ router.post('/modify/col/:id', isLogged, async function(req,res){
 
 })
 router.post('/modify/art/:id', isLogged, upload.array('file',3),async function(req,res){
-    if (validator.isAlpha(req.body.title) && validator.isAlpha(req.body.main_text) &&
-    validator.isInt(req.body.category) && req.files) {
+
+    //if (validator.isAlpha(req.body.title) && validator.isAlpha(req.body.main_text) &&
+    //validator.isInt(req.body.category) && req.files) {
+    
     let art;
     if (req.body.oustanding ==="on"){
         art = true
@@ -172,8 +175,9 @@ router.post('/modify/art/:id', isLogged, upload.array('file',3),async function(r
         category_code : req.body.category
 
     })
+    console.log(post);
     await articleControl.update_article(req.params.id,post);
-}
+
 
     res.redirect('/');
 })

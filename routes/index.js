@@ -47,6 +47,8 @@ router.get('/art/:id' ,async function(req,res,next){
     let author = await authorController.get_author_by_id(article.author_id);
     let time = formatHour.format(article.upload_at);
     let category =  await categoryControl.get_category_by_code(article.category_code);
+    console.log('articulo',article);
+
     res.render('artDetail', {
         category,
         article,
@@ -58,7 +60,6 @@ router.get('/art/:id' ,async function(req,res,next){
 router.get('/col/:id', async(req,res,next)=>{
     let column = await column_control.get_column_by_id(req.params.id);
     let author = await authorController.get_author_by_id(column.author);
-    console.log('autor',column);
     res.render('colDetail',{
         author,
         column

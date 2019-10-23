@@ -1,10 +1,9 @@
-<div class="body-article">
-{{#if article.photo}}
-{{#each article.photo}}
 <div>
-<img src="/images/{{filename}}"/>
+{{#if article.photo}}
+ 
+<div>
+<img width="1200px" height="700px" src="/images/{{article.photo.[0].filename}}"/>
 </div>
-{{/each}}
 {{/if}}
 <div class="horizontal-blue"></div>
 <p class="article-time" >{{time}}</p>
@@ -12,7 +11,18 @@
 <i class="fab fa-facebook-square fa-2x icon"></i>&nbsp;
     <i class="fab fa-twitter-square fa-2x icon"></i>
 <div class="horizontal-blue"></div>
-<p>{{article.main_text}}</p>
+<p>
+    {{#if article.photo.[1]}}
+ 
+         <img class="second-image"  hspace="5" vspace="5" src="/images/{{article.photo.[1].filename}}" style="shape-outside:url(/images/{{article.photo.[1].filename}}"/>
+    {{/if}}
+
+    {{#if article.photo.[2]}}
+ 
+         <img class="third-image" hspace="5" vspace="5" src="/images/{{article.photo.[2].filename}}" style="shape-outside:url(/images/{{article.photo.[2].filename}}"/>
+    {{/if}}
+    
+    {{article.main_text}}</p>
 <p class="article-author">{{author.username}}</p>
 <br>
 <div class="horizontal-blue"></div>
