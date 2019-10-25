@@ -5,7 +5,8 @@ async function set_column(column){
         main_text : column.main_text,
         highlights : column.highlights,
         title : column.title,
-        author : column.author
+        author : column.author,
+        upload_at: Date.now()
     }).save();
 }
 

@@ -3,7 +3,8 @@ var authController = require('../controllers/Author');
 async function format(columns){
     let frColumns = [];
     for(col of columns){
-        let pic = await authController.get_author_by_id(col.author);
+        let id_author = col.author;
+        let pic = await authController.get_author_by_id(id_author);
         let c = {
             id : col.id,
             highlights : col.highlights,

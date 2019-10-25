@@ -51,17 +51,30 @@ router.get('/new' ,isLogged, async function(req,res,next){
     });
 })
 router.post('/new', isLogged, upload.array('file',3),async function(req,res,next){
+    let pictures; 
     let art;
     if (req.body.oustanding ==="on"){
         art = true
     } else {
         art = false
     }
+    if (req.files.length === 0) {
+        pictures = new Object( {
+        fieldname : 'field',
+        originalname : 'default-pshe-square.png',
+        mimetype : 'image/png',
+        destination : '/public/images',
+        filename: 'default-pshe-square.png',
+        path :'public/images/default-pshe-square.png'
+    } );
+} else {
+    pictures =req.files;
+}
     if (validator.isInt(req.body.category) ) {
     let post = new Object({
         title : req.body.title,
         main_text : req.body.main_text,
-        photo : req.files,
+        photo : pictures,
         author_id: req.session.id_author,
         outstanding : art,
         category_code : req.body.category
@@ -159,23 +172,35 @@ router.post('/modify/art/:id', isLogged, upload.array('file',3),async function(r
 
     //if (validator.isAlpha(req.body.title) && validator.isAlpha(req.body.main_text) &&
     //validator.isInt(req.body.category) && req.files) {
-    
     let art;
+    let pictures;
     if (req.body.oustanding ==="on"){
         art = true
     } else {
         art = false
     }
+    if (req.files.length === 0) {
+            pictures = new Object( {
+            fieldname : 'field',
+            originalname : 'default-pshe-square.png',
+            mimetype : 'image/png',
+            destination : '/public/images',
+            filename: 'default-pshe-square.png',
+            path :'public/images/default-pshe-square.png'
+        } );
+    } else {
+        pictures =req.files;
+    }
+
+
     let post = new Object({
         title : req.body.title,
         main_text : req.body.main_text,
-        photo : req.files,
+        photo : pictures,
         author_id: req.session.id_author,
         outstanding : art,
         category_code : req.body.category
-
     })
-    console.log(post);
     await articleControl.update_article(req.params.id,post);
 
 

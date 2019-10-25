@@ -14,9 +14,7 @@ var moment = require('moment');
 router.get('/', async function(req, res, next) {
     let timer = moment().format('MMMM Do YYYY, h:mm:ss a');
     let columns = await column_control.get_columns();
-     formatCol.format(columns).then(resp => {
-         columns = resp
-     });
+    columns = await formatCol.format(columns)
     let authors = await authorController.get_authors();
     let categories = await categoryControl.get_categories();
     let user = req.session.username;
@@ -60,6 +58,7 @@ router.get('/art/:id' ,async function(req,res,next){
 router.get('/col/:id', async(req,res,next)=>{
     let column = await column_control.get_column_by_id(req.params.id);
     let author = await authorController.get_author_by_id(column.author);
+    console.log('Columna',column);
     res.render('colDetail',{
         author,
         column

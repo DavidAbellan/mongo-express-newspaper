@@ -74,6 +74,10 @@ body {
 .column-style {
   margin-top: 3em;
 }
+.image-columnist {
+  max-width: 180px;
+  max-height: 180px;
+}
 .author-box{
   display: flex;
   flex-flow: row wrap;

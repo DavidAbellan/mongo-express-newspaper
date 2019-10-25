@@ -9,6 +9,16 @@ async function get_author_by_id(id){
 }
 async function set_author(name,username,password,avatar,root){
     let crPassword = await crypt.hash(password,3)
+    if(avatar === undefined) {
+        avatar = new Object ({
+            fieldname : 'field',
+            originalname : 'default-profile.png',
+            mimetype : 'image/png',
+            destination : '/public/images',
+            filename: 'default-profile.png',
+            path :'public/images/default-profile.png'
+        })
+    };
     let author = await new modAuthor( {
         name,
         username ,
@@ -36,6 +46,18 @@ async function get_author(userc, password){
 }
 async function update_author(id,author){
     let crPassword = await crypt.hash(author.password,3)
+    if (author.avatar === undefined) {
+        author.avatar = new Object({
+            fieldname : 'field',
+            originalname : 'default-profile.png',
+            mimetype : 'image/png',
+            destination : '/public/images',
+            filename: 'default-profile.png',
+            path :'public/images/default-profile.png'
+        })
+    }
+
+    
     await modAuthor.update({_id : id}, 
         {
             name : author.name,
