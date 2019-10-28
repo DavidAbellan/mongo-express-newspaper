@@ -1,6 +1,5 @@
  {{>header}}
-
-  <div class="search-container">
+<div class="search-container">
  <div class="input-field col s12 pinput">
         <select class="category-select" name="category">
             <option value="" disabled selected>Categorías</option>
@@ -23,6 +22,12 @@
      {{> author_bar }}
      {{/if}}
         
+          
+          
+<div class="page" onmouseover="nextPage()" >
+
+  
+  
           <div class="section col s12 l12">
            {{#each articles}}
 
@@ -53,4 +58,5 @@
   </div>
 
 {{/each}}
+</div>
 

@@ -8,17 +8,31 @@ var formatArt = require('../helpers/format_article');
 var formatCol = require('../helpers/format_column');
 var formatHour = require('../helpers/format_hour');
 var moment = require('moment');
+var pagination = require('../helpers/page');
+var ls = require('local-storage');
+var page ;
+//var infiniteScroll = new infiniteScroll('.page', {
+//    path : () => page ++,
+//    append : '.post',
+//    history : false,
 
-
+//})
 /* GET home page. */
 router.get('/', async function(req, res, next) {
+        
+    if (!ls.get('page')){
+        ls.set('page',0);
+        page = 0;
+    }else {
+       page = ls.get('page');
+    }
     let timer = moment().format('MMMM Do YYYY, h:mm:ss a');
-    let columns = await column_control.get_columns();
+    let columns = await pagination.column(page);
     columns = await formatCol.format(columns)
     let authors = await authorController.get_authors();
     let categories = await categoryControl.get_categories();
     let user = req.session.username;
-    let articles = await article_control.get_articles();
+    let articles = await pagination.page(page);
     articles = formatArt.format(articles);
     if (!user){
     res.render('index', {

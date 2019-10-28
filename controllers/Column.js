@@ -1,4 +1,5 @@
 var modColumn = require('../models/Opinion_Columns');
+var addColumn = require('../helpers/add_column_to_author');
 
 async function set_column(column){
     let col = await new modColumn ({
@@ -8,6 +9,8 @@ async function set_column(column){
         author : column.author,
         upload_at: Date.now()
     }).save();
+    await addColumn.set_new_column(col.author,col._id)
+
 }
 
 async function get_columns() {

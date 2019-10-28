@@ -8,6 +8,9 @@ body {
   margin-left: 30px !important;
 
 }
+.body-text {
+  text-align: left;
+}
 .body-article{
   padding-top: 3em;
   margin: 2px 2px 0 2px;
@@ -26,15 +29,22 @@ body {
   max-width:500px;
   max-height: 500px;
   float: left ;
-  margin-top: 600px;
+ 
 }
 .third-image {
   max-width:500px;
   max-height: 500px;
   float: right ;
-  margin-top: 1200px;
+ 
 }
 
+.link-new {
+ margin: 40% 0 15% 0;
+ 
+}
+.link-new h2 {
+  font-size: 100px;
+}
 
 .article-time{
   font-size: 10px;
@@ -162,6 +172,10 @@ form {
 }
 select {
   color: blue;
+}
+.title-new {
+  font-size: 60px;
+  font-weight: bold;
 }
 .subtitle{
   display: flex;

@@ -41,8 +41,7 @@ router.post('/', async function(req, res, next) {
     });
 
 router.get('/', async function(req,res,next){
-
-    res.render('admin');
+res.render('admin');
 })
 router.get('/new' ,isLogged, async function(req,res,next){
     let categories = await categoryControl.get_categories()
