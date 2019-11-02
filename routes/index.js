@@ -11,6 +11,7 @@ var moment = require('moment');
 var pagination = require('../helpers/page');
 var ls = require('local-storage');
 var page ;
+let articles = [];
 //var infiniteScroll = new infiniteScroll('.page', {
 //    path : () => page ++,
 //    append : '.post',
@@ -19,21 +20,25 @@ var page ;
 //})
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-        
+    
+    
     if (!ls.get('page')){
         ls.set('page',0);
         page = 0;
     }else {
-       page = ls.get('page');
+        page = ls.get('page');
+       
+        
+        
     }
+    let art = await pagination.page(page);
+    articles = formatArt.format(art);
     let timer = moment().format('MMMM Do YYYY, h:mm:ss a');
     let columns = await pagination.column(page);
     columns = await formatCol.format(columns)
     let authors = await authorController.get_authors();
     let categories = await categoryControl.get_categories();
     let user = req.session.username;
-    let articles = await pagination.page(page);
-    articles = formatArt.format(articles);
     if (!user){
     res.render('index', {
         timer,
@@ -53,6 +58,17 @@ router.get('/', async function(req, res, next) {
         })} 
 
     });
+router.get('/next',function(req,res,next){
+    let numberPage = ls.get('page');
+    numberPage = + numberPage +  1;
+    ls.set('page',numberPage); 
+    
+  
+
+
+res.redirect('/')    
+})    
+
 
 router.get('/art/:id' ,async function(req,res,next){
     let article = await article_control.get_article_by_id(req.params.id);

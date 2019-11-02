@@ -24,7 +24,20 @@
         
           
           
-<div class="page" onmouseover="nextPage()" >
+<div class="page" onclick="next(event)" >
+
+  <script>
+   function next(e) {
+   let call = $.ajax({
+      method: 'GET',
+      url:"/next"
+    });
+   let child = document.createDocumentFragment(call.responseText);
+   document.querySelector('.page').appendChild(child);
+  
+
+   }
+  </script>
 
   
   
