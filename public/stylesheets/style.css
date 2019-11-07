@@ -8,6 +8,10 @@ body {
   margin-left: 30px !important;
 
 }
+.pagination-pannel{
+margin:5em 1em 1em 1em;
+padding-top: 1em;
+}
 .body-text {
   text-align: left;
 }
@@ -38,12 +42,10 @@ body {
  
 }
 
-.link-new {
- margin: 40% 0 15% 0;
- 
-}
+
 .link-new h2 {
   font-size: 100px;
+  margin: 40% 0 15% 0;
 }
 
 .article-time{
@@ -64,17 +66,33 @@ body {
   min-height: 3px;
   background: blue;
 }
+.grid {
+  display: flex !important;
+  flex-flow: row nowrap !important;
+}
+
 
 .pinput {
-  margin-left: 80px !important;
+  margin-left: 3px !important;
   width: 50% !important;
 }
 .search {
-  width: 30% !important;
+  width: 100% !important;
   margin-left: 6px !important;
   margin-top: 8px !important;
 
 
+}
+.search-module {
+  display: flex !important;
+  flex-flow: row nowrap !important;
+  margin-bottom:3em ;
+  margin-left: 1em;
+}
+
+.miniature {
+max-width: 500px;
+max-height: 500px;
 }
 .search-container {
   display: flex;
@@ -154,6 +172,7 @@ form {
 }
 .h99 {
   font-size: 11px;
+  margin-left: 40px;
 }
 
 .header-style {

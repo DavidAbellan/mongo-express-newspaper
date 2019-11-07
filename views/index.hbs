@@ -1,22 +1,22 @@
  {{>header}}
 <div class="search-container">
  <div class="input-field col s12 pinput">
-        <select class="category-select" name="category">
+        <select class="category-select" name="category" onchange="location=this.value">
             <option value="" disabled selected>Categorías</option>
             {{#each categories}}
-            <option value={{code}}>{{name}}</option>
+            <option value='/hst/{{code}}'>{{name}}</option>
             {{/each}}
             <option value="" disabled>Columnas</option>
              {{#each authors}}
-            <option value={{_id}}>{{name}}</option>
+            <option value='/hst/{{_id}}'>{{name}}</option>
             {{/each}}
 
 
         </select>
     </div>
-  <input class="search" type="text"></input>
-
    <p class="h99">{{timer}}</p>
+   {{>Searchmodule}}
+
 </div>
      {{#if user}}
      {{> author_bar }}
@@ -24,20 +24,9 @@
         
           
           
-<div class="page" onclick="next(event)" >
+<div class="page" id="principal" >
 
-  <script>
-   function next(e) {
-   let call = $.ajax({
-      method: 'GET',
-      url:"/next"
-    });
-   let child = document.createDocumentFragment(call.responseText);
-   document.querySelector('.page').appendChild(child);
   
-
-   }
-  </script>
 
   
   
@@ -69,7 +58,18 @@
       </div>
     </div>
   </div>
+ 
+
 
 {{/each}}
+</div>
+<div class="pagination-pannel">
+{{#if backPage}}
+   <a href="/back">  <i class="fas fa-backward"></i> </a>
+
+{{/if}}
+{{#if nextPage}}
+   <a href="/next"> <i class="fas fa-forward"></i>  </a>
+{{/if}}  
 </div>
 

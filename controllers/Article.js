@@ -15,6 +15,10 @@ async function update_article(id,article){
 async function get_articles(){
     return await modArticle.find();
 }
+async function get_articles_by_category(code){
+    return await modArticle.find({category_code : code});
+
+}
 async function set_article(article) {
   
     let newArticle = await new modArticle ({
@@ -36,6 +40,7 @@ async function get_article_by_id(id){
     return await modArticle.findById(id);
 }
 module.exports = {
+    get_articles_by_category,
     get_articles,
     set_article,
     remove_article,

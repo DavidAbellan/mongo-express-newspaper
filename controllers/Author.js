@@ -28,9 +28,7 @@ async function set_author(name,username,password,avatar,root){
     }).save();
 }
 async function get_author(userc, password){
-    console.log(userc);
     let user = await modAuthor.findOne( {username:userc});
-    console.log(user);
     if (!user) {
         return undefined;
     } else{

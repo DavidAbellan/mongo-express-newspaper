@@ -16,6 +16,10 @@ async function set_column(column){
 async function get_columns() {
     return await modColumn.find();
 }
+async function get_column_by_author(authorID) {
+    return await modColumn.find({author:authorID});
+
+}
 
 async function remove_column(id){
     return await modColumn.findByIdAndDelete(id);
@@ -34,6 +38,7 @@ async function update_column(id,column){
 }
 
 module.exports = {
+    get_column_by_author,
     update_column,
     set_column,
     get_columns,
