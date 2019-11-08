@@ -8,6 +8,7 @@ var formatArt = require('../helpers/format_article');
 var formatCol = require('../helpers/format_column');
 var formatHour = require('../helpers/format_hour');
 var getAllFromCtgry = require('../helpers/get_all_from_category');
+var getRelArt = require('../helpers/get_related_articles');
 var moment = require('moment');
 var pagination = require('../helpers/page');
 var search_fun = require('../helpers/search_post');
@@ -31,7 +32,8 @@ router.get('/', async function(req, res, next) {
     let total_pages = await pagination.total_pages();
     total_pages = Math.ceil(total_pages);
     total_pages --;
-    if (total_pages <= page  ) {
+    
+    if (total_pages <= (page + 1)  ) {
         nextPage = false; 
     } else {
         nextPage = true;
@@ -91,7 +93,8 @@ router.post('/search', async function(req,res,next) {
     let posts = await search_fun.search(lookin);
     if (posts) {  
     res.render('searchGrid', {
-        posts
+        posts,
+        lookin
     })
     } else {
      res.redirect('/');   
@@ -131,20 +134,19 @@ router.get('/art/:id' ,async function(req,res,next){
     let author = await authorController.get_author_by_id(article.author_id);
     let time = formatHour.format(article.upload_at);
     let category =  await categoryControl.get_category_by_code(article.category_code);
-    console.log('articulo',article);
-
+    let posts =  await getRelArt.get_related(article);
     res.render('artDetail', {
         category,
         article,
         author,
-        time
+        time,
+        posts
     })
 
 })
 router.get('/col/:id', async(req,res,next)=>{
     let column = await column_control.get_column_by_id(req.params.id);
     let author = await authorController.get_author_by_id(column.author);
-    console.log('Columna',column);
     res.render('colDetail',{
         author,
         column
