@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css?family=Saira+Stencil+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Pontano+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap');
+
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: white;
+  margin-left: 30px !important;
+
+}
+.pagination-pannel{
+margin:5em 1em 1em 1em;
+padding-top: 1em;
+}
+.body-text {
+  text-align: left;
+}
+.body-article{
+  padding-top: 3em;
+  margin: 2px 2px 0 2px;
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100vw;
+  height: 100vh;
+}
+.body-article p {
+  width: 80%;
+  margin-left: 30px;
+  text-align: left;
+}
+
+.second-image {
+  max-width:500px;
+  max-height: 500px;
+  float: left ;
+ 
+}
+.third-image {
+  max-width:500px;
+  max-height: 500px;
+  float: right ;
+ 
+}
+
+
+.link-new h2 {
+  font-size: 100px;
+  margin: 40% 0 15% 0;
+}
+
+.article-time{
+  font-size: 10px;
+}
+.article-category{
+  font-size:20px;
+  font-weight: bolder;
+}
+.article-author {
+  font-size:16px;
+}
+
+.horizontal-blue {
+  align-self: center;
+  margin-top:2em;
+  width: 90vw;
+  min-height: 3px;
+  background: blue;
+}
+.grid {
+  display: flex !important;
+  flex-flow: row nowrap !important;
+}
+
+
+.pinput {
+  margin-left: 3px !important;
+  width: 50% !important;
+}
+.search {
+  width: 100% !important;
+  margin-left: 6px !important;
+  margin-top: 8px !important;
+
+
+}
+.search-module {
+  display: flex !important;
+  flex-flow: row nowrap !important;
+  margin-bottom:5em ;
+  margin-left: 5em;
+}
+.search-module button {
+  margin-left: 1em;
+  margin-top: 1em;
+  max-height: 30px;
+}
+
+.miniature {
+max-width: 500px;
+max-height: 500px;
+}
+.search-container {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.column-style {
+  margin-top: 3em;
+}
+.image-columnist {
+  max-width: 180px;
+  max-height: 180px;
+}
+.author-box{
+  display: flex;
+  flex-flow: row wrap;
+  justify-items: flex-start;
+
+}
+.author-box img {
+  margin-right: 13px;
+  border-radius: 10%;
+}
+.little-author{
+  padding-top: 45px;
+  font-size: 12px;
+  margin-left: 13px;
+
+}
+
+
+.author-naming {
+  font-size: 12px;
+  margin-left: 12px;
+}
+.opinion-column{
+  width: 80%;
+  margin-left: 13px;
+}
+.icon {
+  color: blue;
+}
+.new {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  
+  
+}
+a:hover {
+  text-decoration-line: underline;
+}
+
+select {
+  display: block;
+}
+
+form {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.outstanding {
+  width: 90vw
+}
+
+.header {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+.h99 {
+  font-size: 11px;
+  margin-left: 40px;
+}
+
+.header-style {
+  margin-left: -30px !important;
+  margin-right: -30px;
+  width: 100vw;
+  height: 300px;
+  display: flex;
+  flex-flow:column nowrap;
+  align-items: center;
+  justify-content: center;
+}
+.header-style h1 {
+  flex:2;
+ 
+}
+select {
+  color: blue;
+}
+.title-new {
+  font-size: 60px;
+  font-weight: bold;
+}
+.subtitle{
+  display: flex;
+  justify-content: center;
+  background-color: blue;
+  width: 100vw;
+  height: 80px;
+  flex: 1;
+}
+.subtitle p {
+  font-family: 'Pontano Sans';
+  color: #FFFFFF;
+  font-size: 32px;
+}
+
+h1 {
+  font-family: 'Permanent Marker', cursive;
+}
+
+.columnist {
+  border-radius: 25% !important;
+  margin: 3em 3em 3em 3em;
+  height: 10em;
+  width: 10em;
+}
+
+p {
+  text-decoration-color: #000000;
+  font-family: 'Pontano Sans';
+  font-size: 40px;
+}
+
+h2 {
+  color: #FFFFFF;
+text-shadow: 2px 2px 0 #000000, 2px -2px 0 #000000, -2px 2px
+ 0 #000000, -2px -2px 0 #000000, 2px 0px 0 #000000, 0px 2px 0 #000000, -2px 0px 
+ 0 #000000, 0px -2px 0 #000000;
+  font-size: 3em;
+
+}
+h4 {
+  font-style: italic;
+  font-family: 'Pontano Sans';
+  font-weight: bold;
+  font-size:80px;
+  text-decoration-line: underline;
+}
+
+
+@media (max-width : 900px) {
+  h2 {
+    font-size: 50px !important;
+  }
+}
+@media (max-width : 600px) {
+  h2 {
+    font-size: 30px !important;
+  }
+}
