@@ -1,0 +1,63 @@
+<div>
+{{#if article.photo}}
+ 
+<div>
+<img width="1200px" height="700px" src="/images/{{article.photo.[0].filename}}"/>
+</div>
+{{/if}}
+<div class="horizontal-blue"></div>
+<p class="article-time" >{{time}}</p>
+<p class="article-category">{{category.name}}</p>
+<i class="fab fa-facebook-square fa-2x icon"></i>&nbsp;
+    <i class="fab fa-twitter-square fa-2x icon"></i>
+<div class="horizontal-blue"></div>
+<p class="body-text">
+    {{#if article.photo.[1]}}
+       <img class="second-image"  hspace="5" vspace="5" src="/images/{{article.photo.[1].filename}}" style="shape-outside:url(/images/{{article.photo.[1].filename}}"/>
+    {{/if}}
+    {{#if article.photo.[2]}}
+       <img class="third-image" hspace="5" vspace="5" src="/images/{{article.photo.[2].filename}}" style="shape-outside:url(/images/{{article.photo.[2].filename}}"/>
+    {{/if}}
+    {{article.main_text}}</p>
+<p class="article-author">{{author.username}}</p>
+<br>
+<div class="horizontal-blue"></div>
+<h2>Artículos relacionados</h2>
+<div>
+    <div class="grid">
+    {{#each posts}}
+      <div class="card miniature">
+    <div class="card-image waves-effect waves-block waves-light ">
+      {{#if highlights}}
+      {{else}}
+            
+            <img class="activator" src="{{photo}}"/>
+           
+
+      {{/if}}
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">{{title}}<i class="material-icons right">more_vert</i></span>
+      {{#if highlights}}
+      <p><a href="/col/{{id}}">Ver Opinión</a></p>
+      {{else}}
+      <p><a href="/art/{{id}}">Ver Noticia</a></p>
+       {{/if}}
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">{{title}}<i class="material-icons right">close</i></span>
+     {{#if highlights}}
+
+      <p>{{highlights}}</p>
+      {{else}}
+      <p><a href="/art/{{id}}">Ver Noticia</a></p>
+       {{/if}}
+
+    </div>
+    {{/each}}
+
+  </div>
+
+  </div>
+</div>
+</div>

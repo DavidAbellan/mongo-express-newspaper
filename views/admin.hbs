@@ -1,0 +1,12 @@
+<div  >
+<form style="margin:30px 30px 0 0"  method="POST" action="/admin">
+{{#if eq}}
+{{> error}}
+{{/if}}
+
+<input type="text" class="validate" name="username" placeholder="nombre de usuario"/>
+<input type="text" class="validate" name="password" placeholder="contraseña"/>
+<button class="btn waves-effect waves-light" type="submit">Envía<i class="material-icons right">send</i></button>
+
+</form>
+</div>

@@ -1,0 +1,75 @@
+ {{>header}}
+<div class="search-container">
+ <div class="input-field col s12 pinput">
+        <select class="category-select" name="category" onchange="location=this.value">
+            <option value="" disabled selected>Categorías</option>
+            {{#each categories}}
+            <option value='/hst/{{code}}'>{{name}}</option>
+            {{/each}}
+            <option value="" disabled>Columnas</option>
+             {{#each authors}}
+            <option value='/hst/{{_id}}'>{{name}}</option>
+            {{/each}}
+
+
+        </select>
+    </div>
+   <p class="h99">{{timer}}</p>
+   {{>Searchmodule}}
+
+</div>
+     {{#if user}}
+     {{> author_bar }}
+     {{/if}}
+        
+          
+          
+<div class="page" id="principal" >
+
+  
+
+  
+  
+          <div class="section col s12 l12">
+           {{#each articles}}
+
+              {{#if outstanding}}
+               {{> outstand this}}
+              {{else}}
+               {{> new this}}
+             {{/if}}
+        </div>
+
+{{/each}}
+{{#each columns}}
+<div class="col s12 m7">
+    <div class="card horizontal">
+      <div class="card-image">
+        <img class="columnist" src="/images/{{picture.filename}}" />
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <a href="/col/{{id}}">
+          <h5>{{title}}</h5>
+          <p>{{highlights}}</p>
+          </a>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+ 
+
+
+{{/each}}
+</div>
+<div class="pagination-pannel">
+{{#if backPage}}
+   <a href="/back">  <i class="fas fa-backward"></i> </a>
+
+{{/if}}
+{{#if nextPage}}
+   <a href="/next"> <i class="fas fa-forward"></i>  </a>
+{{/if}}  
+</div>
+

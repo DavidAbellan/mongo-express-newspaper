@@ -1,0 +1,47 @@
+<div class="edit-post">
+
+<form method="POST" action="/admin/modify/art/{{article._id}}" enctype="multipart/form-data">
+    <div class="input-field col s12">
+        <select name="category">
+            <option disabled selected>Categorías</option>
+            {{#each categories}}
+            <option value={{code}}>{{name}}</option>
+            {{/each}}
+
+
+        </select>
+    </div>
+{{#with article}}
+    <div class="input-field col s6">
+        <input value="{{title}}" name="title" type="text" class="validate">
+        <label for="title">Título</label>
+    </div>
+    <p>
+        <label>
+            <input type="checkbox" name="oustanding"  class="filled-in" />
+            <span>Destacada</span>
+        </label>
+    </p>
+
+    <div class="input-field col s6">
+        {{#each photo}}
+        <img src="/images/{{filename}}" class="thumbnail"/>
+        {{/each}}
+        <input  name="file" type="file" class="validate" multiple>
+        <label for="file"></label>
+    </div>
+
+    <div class="row">
+        <div class="row">
+            <div class="input-field col s12">
+                <textarea  name="main_text" id="textarea1" class="materialize-textarea">{{main_text}}</textarea>
+                <label for="textarea1">Campo Semántico</label>
+            </div>
+        </div>
+    </div>
+    <button class="btn waves-effect waves-light" type="submit">Modifica
+        <i class="material-icons right">backup</i>
+    </button>
+</form>
+{{/with}}
+</div>
