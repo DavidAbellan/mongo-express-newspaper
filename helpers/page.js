@@ -9,12 +9,12 @@ async function page(pageNumber) {
      let limit = pageSize;
 
     let articles = await modArticle.article.findAll(
-        /*{
-        order: [[upload_at, ASC]],
+        {
+        order: ['upload_at'],
         limit: limit,
         skip: offset
 
-    }*/);
+    });
 
     return articles;
 
@@ -24,12 +24,12 @@ async function column(pageNumber) {
     let offset = pageNumber * pageSize;
     let limit = pageSize;
 
-   let columns = await modColumn.opinion_column.findAll(/*{
-    order: [[upload_at, ASC]],
+   let columns = await modColumn.opinion_column.findAll({
+    order: ['upload_at'],
     limit: limit,
     skip: offset
 
-}*/);
+});
 
    return columns;
 

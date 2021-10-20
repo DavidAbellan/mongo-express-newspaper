@@ -30,12 +30,15 @@ async function set_author(name,username,password,avatar,root){
 }
 async function get_author(userc, password){
     let user = await modAuthor.author.findOne( {username:userc});
+    console.log("getAuthor Controller",user);
     if (!user) {
         return undefined;
     } else{
-        let dsPassword = await crypt.compare(password,user.password);
+        /*let dsPassword = await crypt.compare(password,user.password);
         if(!dsPassword){
-            return undefined;
+            return undefined;*/
+         if(!password){
+            return undefined    
         }else {
             return user;
         } 
