@@ -6,9 +6,15 @@ module.exports =(sequelize,dataTypes) => {
     upload_at : dataTypes.DATE,
     author_id: dataTypes.STRING,
     outstanding : {type :dataTypes.BOOLEAN, defaultValue : false },
-    category_code : dataTypes.INTEGER
+   
     
-   })
+   });
+
+   article.associate = function(models){
+    models.article.hasMany(models.category, {as:"categories"});
+}     
+
+
   
 return article;
 }

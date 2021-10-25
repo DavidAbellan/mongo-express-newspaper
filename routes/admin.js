@@ -12,17 +12,14 @@ var token = require('../services/token');
 var LS = require('local-storage');
 
 router.post('/', async function(req, res, next) {
-    let categories = await categoryControl.get_categories()
-  console.log(categories);
+  let categories = await categoryControl.get_categories()
   let username = req.body.username;
   let password = req.body.password;  
-  console.log(username,password);
-  console.log("validatir",!validator.isAscii(username));
+ 
   /*if (!validator.isAscii(username)){
       /*res.redirect('/');
      }else {*/
         let user = await adminControl.get_author(username,password);
-        console.log(user);
            if (!user) {
                res.render('admin', {
                     categories
@@ -31,7 +28,6 @@ router.post('/', async function(req, res, next) {
            } else {
 
                req.session.username = user.username;
-               console.log("user.username",user)
                req.session.id_author = user._id;
                req.session.root = user.root;
                let tokenService = new token();
