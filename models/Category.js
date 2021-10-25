@@ -5,11 +5,10 @@ module.exports =(sequelize,dataTypes) => {
     code: {type :dataTypes.INTEGER , required:true , unique:true}  
    })
   category.associate = function(models){
-    models.category.belongsToMany(models.article,{through : 'article_category'});
+    models.category.hasMany(models.article);
  }   
  
 
   
 return category;
 }
-
