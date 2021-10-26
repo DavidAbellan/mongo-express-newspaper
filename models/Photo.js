@@ -14,7 +14,7 @@ module.exports =(sequelize,dataTypes) => {
    })
    photo.associate = function(models){
        models.photo.belongsTo(models.article);
-    
+       models.photo.belongsTo(models.article, {as:"principal_photo"});
    }
   
 return photo; 

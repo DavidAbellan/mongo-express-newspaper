@@ -7,26 +7,16 @@ async function get_authors(){
 async function get_author_by_id(id){
     return await modAuthor.author.findByPk(id);
 }
-async function set_author(name,username,password,avatar,root){
+async function set_author(name,username,password,root){
     let crPassword = await crypt.hash(password,3)
-    if(avatar === undefined) {
-        avatar = new Object ({
-            fieldname : 'field',
-            originalname : 'default-profile.png',
-            mimetype : 'image/png',
-            destination : '/public/images',
-            filename: 'default-profile.png',
-            path :'public/images/default-profile.png'
-        })
-    };
-    let author = await new author( {
+    let author = new Object( {
         name,
         username ,
-        avatar,
         password : crPassword,
         root
     })
     return await modAuthor.author.create(author);
+   
 }
 async function get_author(userc, password){
     let user = await modAuthor.author.findOne( {username:userc});

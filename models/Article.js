@@ -12,6 +12,9 @@ article.associate = function(models){
     models.article.hasMany(models.photo);
     models.article.hasMany(models.comment);
     models.article.belongsTo(models.author);
+    models.article.hasOne(models.photo, {as:"principal_photo"});
+
+
 }     
 
 

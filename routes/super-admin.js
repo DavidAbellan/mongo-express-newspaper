@@ -7,6 +7,7 @@ var matcher = require('../helpers/match_category');
 var long = require('../helpers/category_length');
 var isLogged = require('../middleware/isLogged');
 var updateAuthor = require('../helpers/update_user');
+var setPicture = require('../helpers/set_avatar_from_author');
 
 router.get('/users',isLogged , async (req,res) =>{
    let authors = await authorController.get_authors();
@@ -26,7 +27,6 @@ router.get('/erase/:id', isLogged, async function(req,res){
     let pictures;
     let author;
     pictures =req.file;
-    console.log('foto',pictures);
     let password = req.body.password;
      author = new Object (
          {
@@ -84,7 +84,6 @@ router.post('/create',isLogged, upload.single('file'), async function(req,res){
     let name= req.body.name;
     let username = req.body.username;
     let password = req.body.password;
-    
     let superAdmin= false;
   
     if(req.body.switch ==='on'){
@@ -95,7 +94,8 @@ router.post('/create',isLogged, upload.single('file'), async function(req,res){
         res.render('author')
     } else {
         
-        await authorController.set_author(name,username,password,req.file,superAdmin);
+        let newauthor = await authorController.set_author(name,username,password,superAdmin);
+        await setPicture.set_avatar(req.file, newauthor.id);
         let authors = await authorController.get_authors();
         res.render('users',{
             authors
