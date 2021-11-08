@@ -1,5 +1,6 @@
 var modAuthor = require('../models');
 var crypt = require('bcrypt');
+var idgen = require('../helpers/id_generator');
 
 async function get_authors(){
     return await modAuthor.author.findAll();
@@ -9,33 +10,40 @@ async function get_author_by_id(id){
 }
 async function set_author(name,username,password,root){
     let crPassword = await crypt.hash(password,3)
+    let id =name[0] + idgen.get_random_id() + username[0];
     let author = new Object( {
+        id,
         name,
         username ,
         password : crPassword,
         root
     })
+
     return await modAuthor.author.create(author);
    
 }
+async function get_id_by_username (username){
+    let user = await modAuthor.author.findOne({username:username});
+    return user.id;
+}
 async function get_author(userc, password){
     let user = await modAuthor.author.findOne( {username:userc});
-    console.log("getAuthor Controller",user);
     if (!user) {
         return undefined;
-    } else{
-        /*let dsPassword = await crypt.compare(password,user.password);
+    } else {
+
+        let dsPassword = await crypt.compare(password,user.password);
         if(!dsPassword){
-            return undefined;*/
+            return undefined;
+        }
          if(!password){
             return undefined    
         }else {
             return user;
-        } 
-
+    }}
     }
 
-}
+
 async function update_author(id,author){
     let crPassword = await crypt.hash(author.password,3)
     if (author.avatar === undefined) {
@@ -67,5 +75,6 @@ module.exports = {
     remove_author,
     get_authors,
     set_author,
-    get_author
+    get_author,
+    get_id_by_username
 }

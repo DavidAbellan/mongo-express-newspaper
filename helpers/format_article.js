@@ -1,16 +1,18 @@
-
-function format (articles){
+var photoController = require("../controllers/Photo");
+async function format (articles){
     let article_f = [];
     for(article of articles){
         let art = {
             title : article.title,
-            id : article._id ,
+            id : article.id ,
             outstanding : article.outstanding,
-            photo :'/images/' + article.photo[0].filename,
+           
         }
+        let photo = await photoController.get_main_photo(art.id);
+        art.photo = (photo.destination +"/"+ photo.filename).slice(2);
         article_f.push(art);
 
-     }   
+     } 
      article_f.reverse(); 
 
      return article_f.sort((a)=>{

@@ -1,16 +1,18 @@
 var modColumn = require('../models');
 var addColumn = require('../helpers/add_column_to_author');
+var idgen = require('../helpers/id_generator');
 
 async function set_column(column){
-    let col = new column ({
+    let col = new Object ({
+        id : idgen.get_random_id(),
         main_text : column.main_text,
         highlights : column.highlights,
         title : column.title,
-        author : column.author,
+        author_id : column.author_id,
         upload_at: Date.now()
     })
-    await modColumn.opinion_column.create(new column);
-    await addColumn.set_new_column(col.author,col._id)
+    console.log("column en controller", col);
+    await modColumn.opinion_column.create(col);
 
 }
 

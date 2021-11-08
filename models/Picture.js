@@ -7,13 +7,11 @@ module.exports =(sequelize,dataTypes) => {
     destination: {type :dataTypes.STRING , defaultValue:"/public/images/profiles/"},
     filename: {type :dataTypes.STRING , defaultValue:"default-profile"},
     path: {type :dataTypes.STRING , defaultValue:"/public/images/profiles/default-profile"},
+    author_id : {type: dataTypes.STRING, required:true, unique:true}
     
     
    })
-   picture.associate = function(models){
-       models.picture.belongsTo(models.author);
-    
-   }
+  
   
 return picture; 
 }

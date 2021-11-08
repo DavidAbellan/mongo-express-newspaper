@@ -5,10 +5,7 @@ module.exports =(sequelize,dataTypes) => {
     author:  {type :dataTypes.STRING, required:true}
    
    })
-comment.associate = function(models) {
-    models.comment.belongsTo(models.article);
-    models.comment.belongsTo(models.opinion_column);
-}   
+
   
 return comment;
 }

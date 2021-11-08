@@ -10,7 +10,7 @@ async function page(pageNumber) {
 
     let articles = await modArticle.article.findAll(
         {
-        order: ['upload_at'],
+        order: ['createdAt'],
         limit: limit,
         skip: offset
 
@@ -25,7 +25,7 @@ async function column(pageNumber) {
     let limit = pageSize;
 
    let columns = await modColumn.opinion_column.findAll({
-    order: ['upload_at'],
+    order: ['createdAt'],
     limit: limit,
     skip: offset
 

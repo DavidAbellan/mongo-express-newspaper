@@ -2,7 +2,6 @@ var categoryControl = require('../controllers/Category');
 
 async function match (name){
     let categories = await categoryControl.get_categories();
-    console.log('categories',categories);
     for(cat of categories){
         if (cat.name === name){
             console.log(cat.name);

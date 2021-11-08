@@ -9,16 +9,17 @@
             <span>Destacada</span>
         </label>
     </p>
-    <div class="input-field col s12">
-        <select name="category">
-            <option value="" disabled selected>Categorías</option>
-            {{#each categories}}
-            <option value={{code}}>{{name}}</option>
-            {{/each}}
+    <p>
+    {{#each categories}}    
+        <label>
+            <input type="checkbox" name="categories"  value={{id}} class="filled-in" />
+            <span>{{name}}</span>
+        </label>
+     {{/each}}    
+    </p>
 
 
-        </select>
-    </div>
+        
 
     <div class="input-field col s6">
         <input name="file" type="file" class="validate" multiple>
@@ -36,4 +37,5 @@
     <button class="btn waves-effect waves-light" type="submit">Publica
         <i class="material-icons right">backup</i>
     </button>
+   
 </form>

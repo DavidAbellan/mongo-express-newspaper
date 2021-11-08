@@ -39,7 +39,7 @@ router.get('/', async function(req, res, next) {
         nextPage = true;
     }
     let art = await pagination.page(page);
-    articles = formatArt.format(art);
+    articles = await formatArt.format(art);
     let timer = moment().format('MMMM Do YYYY, h:mm:ss a');
     let columns = await pagination.column(page);
     columns = await formatCol.format(columns)

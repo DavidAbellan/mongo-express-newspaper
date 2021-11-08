@@ -1,22 +1,12 @@
 module.exports =(sequelize,dataTypes) => {
     let article = sequelize.define('article',{
-    id: {type :dataTypes.STRING , required:true,unique:true, primaryKey:true},    
+    id: {type :dataTypes.STRING , required:true,primaryKey:true},    
     title: {type :dataTypes.STRING , required:true},
     main_text: {type :dataTypes.STRING , required:true},
-    upload_at : dataTypes.DATE,
-    outstanding : {type :dataTypes.BOOLEAN, defaultValue : false }
+    outstanding : {type :dataTypes.BOOLEAN, defaultValue : false },
+    author_id : {type: dataTypes.STRING, required:true},
+   
     });
-
-article.associate = function(models){
-    models.article.belongsToMany(models.category, {through : 'article_category'});
-    models.article.hasMany(models.photo);
-    models.article.hasMany(models.comment);
-    models.article.belongsTo(models.author);
-    models.article.hasOne(models.photo, {as:"principal_photo"});
-
-
-}     
-
 
   
 return article;

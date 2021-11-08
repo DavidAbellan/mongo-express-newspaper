@@ -4,10 +4,7 @@ module.exports =(sequelize,dataTypes) => {
     name: {type :dataTypes.STRING , required:true , unique:true},
     code: {type :dataTypes.INTEGER , required:true , unique:true}  
    })
-  category.associate = function(models){
-    models.category.hasMany(models.article);
- }   
- 
+  
 
   
 return category;

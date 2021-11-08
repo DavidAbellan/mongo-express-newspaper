@@ -4,12 +4,16 @@ var adminControl = require('../controllers/Author');
 var validator = require('validator');
 var upload = require('../config/multer');
 var categoryControl = require('../controllers/Category');
+var articleCategoryControl = require('../controllers/ArticleCategory');
 var articleControl = require('../controllers/Article');
+var photoControl = require('../controllers/Photo');
 var columnControl = require('../controllers/Column');
 var helpHighLight= require('../helpers/set_highlight');
+var getAuthorId= require('../helpers/get_id_by_username');
 var isLogged = require('../middleware/isLogged');
 var token = require('../services/token');
 var LS = require('local-storage');
+var idgen = require('../helpers/id_generator');
 
 router.post('/', async function(req, res, next) {
   let categories = await categoryControl.get_categories()
@@ -52,37 +56,40 @@ router.get('/new' ,isLogged, async function(req,res,next){
 })
 router.post('/new', isLogged, upload.array('file',3),async function(req,res,next){
     let pictures; 
-    let art;
+    let art = false;
+    let authId = await getAuthorId.get_id(req.session.username);
+    let artID = idgen.get_random_id();
+    console.log("body", req.body);
     if (req.body.oustanding ==="on"){
         art = true
-    } else {
-        art = false
     }
-    if (req.files.length === 0) {
-        pictures = new Object( {
-        fieldname : 'field',
-        originalname : 'default-pshe-square.png',
-        mimetype : 'image/png',
-        destination : '/public/images',
-        filename: 'default-pshe-square.png',
-        path :'public/images/default-pshe-square.png'
-    } );
-} else {
-    pictures =req.files;
-}
-    if (validator.isInt(req.body.category) ) {
-    let post = new Object({
-        title : req.body.title,
-        main_text : req.body.main_text,
-        photo : pictures,
-        author_id: req.session.id_author,
-        outstanding : art,
-        category_code : req.body.category
-
-    })
-
+    
+        let post = new Object({
+            id:artID,    
+            title : req.body.title,
+            main_text : req.body.main_text,
+            author_id: authId,
+            outstanding : art
+        });
+            
+       
+        
+        if (req.files.length !== 0 && req.files != undefined) {
+            pictures =req.files;
+            for (picture of pictures){
+                picture.id = idgen.get_random_id();
+                picture.articleId = artID;
+            }
+            await photoControl.set_photos(pictures);
+         
+        }
+ 
+    for(cat of req.body.categories) {
+        await articleCategoryControl.set_relationship_article_category(cat,artID);   
+      }
+    post.id = artID; 
     await articleControl.set_article(post);
-}
+
     res.redirect('/');
     
 })
@@ -90,8 +97,8 @@ router.get('/column',isLogged, function(req ,res){
     res.render('column');
 
 })
-router.post('/column', isLogged, async(req,res) =>{
-  
+router.post('/column', isLogged, async (req,res) =>{
+    let authId = await getAuthorId.get_id(req.session.username);
     let highlights = "";
     if(req.body.highlights === ''){
       highlights = helpHighLight.find_highlight(req.body.main_text);  
@@ -103,7 +110,7 @@ router.post('/column', isLogged, async(req,res) =>{
        main_text : req.body.main_text,
        highlights,
        title : req.body.title,
-       author : req.session.id_author,
+       author_id : authId,
        upload_at : Date.now()
    });
    await columnControl.set_column(col);

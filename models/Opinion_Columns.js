@@ -4,14 +4,11 @@ module.exports =(sequelize,dataTypes) => {
     main_text : {type :dataTypes.STRING , required:true},
     highlights: dataTypes.STRING ,
     title :{type :dataTypes.STRING , required:true},
-    upload_at : dataTypes.DATE,
+    author_id : {type: dataTypes.STRING, required:true}
+
    
    })
-opinion.associate = function(models){
-    models.opinion_column.belongsTo(models.author, {as:"author"});
-    models.opinion_column.hasMany(models.comment);
-    
-}   
+
   
 return opinion;
 }

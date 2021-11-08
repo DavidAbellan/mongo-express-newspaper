@@ -2,13 +2,15 @@
 
 var mod = require('../models');
 
+var idgen = require('../helpers/id_generator');
+
 function set_picture(picture, authorID) {
   return regeneratorRuntime.async(function set_picture$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           picture.authorId = authorID;
-          picture.id = String.fromCharCode(97 + Math.random() * 10) + Date.now();
+          picture.id = idgen.get_random_id();
           _context.next = 4;
           return regeneratorRuntime.awrap(mod.picture.create(picture));
 
