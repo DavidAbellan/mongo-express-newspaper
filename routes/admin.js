@@ -59,12 +59,12 @@ router.post('/new', isLogged, upload.array('file',3),async function(req,res,next
     let art = false;
     let authId = await getAuthorId.get_id(req.session.username);
     let artID = idgen.get_random_id();
-    console.log("body", req.body);
+    let categories = req.body.categories;
     if (req.body.oustanding ==="on"){
         art = true
     }
     
-        let post = new Object({
+    let post = new Object({
             id:artID,    
             title : req.body.title,
             main_text : req.body.main_text,
@@ -74,7 +74,7 @@ router.post('/new', isLogged, upload.array('file',3),async function(req,res,next
             
        
         
-        if (req.files.length !== 0 && req.files != undefined) {
+    if (req.files.length !== 0 && req.files != undefined) {
             pictures =req.files;
             for (picture of pictures){
                 picture.id = idgen.get_random_id();
@@ -83,10 +83,16 @@ router.post('/new', isLogged, upload.array('file',3),async function(req,res,next
             await photoControl.set_photos(pictures);
          
         }
- 
-    for(cat of req.body.categories) {
-        await articleCategoryControl.set_relationship_article_category(cat,artID);   
-      }
+
+    if(typeof categories === 'string' || categories instanceof String) {
+        if (categories != ""){
+        await articleCategoryControl.set_relationship_article_category(categories,artID);
+        }
+    } else {
+            for(let i = 0;i<categories.length; i++) {
+                await articleCategoryControl.set_relationship_article_category(categories[i],artID);   
+            }
+    };        
     post.id = artID; 
     await articleControl.set_article(post);
 

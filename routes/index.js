@@ -47,7 +47,7 @@ router.get('/', async function(req, res, next) {
     let categories = await categoryControl.get_categories();
     let user = req.session.username;
     if (!user){
-    res.render('index', {
+    res.send({
         timer,
         articles,
         columns,

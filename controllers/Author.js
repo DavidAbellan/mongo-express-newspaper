@@ -32,16 +32,16 @@ async function get_author(userc, password){
         return undefined;
     } else {
 
-        let dsPassword = await crypt.compare(password,user.password);
-        if(!dsPassword){
+        /*let dsPassword = await crypt.compare(password,user.password);
+        //if(!dsPassword){
             return undefined;
         }
          if(!password){
             return undefined    
-        }else {
+        }else {*/
             return user;
     }}
-    }
+    //}
 
 
 async function update_author(id,author){

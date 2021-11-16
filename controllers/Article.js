@@ -1,5 +1,6 @@
 var mod = require('../models');
 
+
 async function update_article(id,article){
     
     await mod.article.update({id : id}, {

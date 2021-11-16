@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
 var flash = require('connect-flash');
 var hbs = require('hbs');
+var cors = require('cors');
 
 
 
@@ -24,6 +25,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/images')));
+
+app.use(cors());
 
 app.use( session( {
   secret: 'password',
