@@ -18,15 +18,16 @@ async function format (articles){
         }
         let categories = await addCategories.get_categories(art.id);
         art.categories = categories;
-        console.log("ART __ FOMTA", art);
         let photo = await photoController.get_main_photo(art.id);
         art.photo = photo;
         article_f.push(art);
 
+
      } 
      article_f.reverse(); 
 
-     return article_f.sort((a)=>{
+
+    article_f.sort((a)=>{
     if(a.outstanding == true){
         return -1;
     } else {
@@ -34,6 +35,8 @@ async function format (articles){
     }
     return 0;
     }) 
+    return article_f;
+
     //devolver nombre categoria --- si se hace asíncrona no carga las noticias
 
 

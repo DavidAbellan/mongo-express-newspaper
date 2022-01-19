@@ -84,17 +84,16 @@ router.post('/create',isLogged, upload.single('file'), async function(req,res){
     let name= req.body.name;
     let username = req.body.username;
     let password = req.body.password;
+    let description = req.body.description;
     let superAdmin= false;
   
     if(req.body.switch ==='on'){
         superAdmin = true
     }
-
     if (password !== req.body.rpassword){
         res.render('author')
     } else {
-        
-        let newauthor = await authorController.set_author(name,username,password,superAdmin);
+        let newauthor = await authorController.set_author(name,username,password,superAdmin,description);
         await setPicture.set_avatar(req.file, newauthor.id);
         let authors = await authorController.get_authors();
         res.render('users',{

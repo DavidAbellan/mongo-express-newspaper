@@ -14,9 +14,7 @@ async function set_category(name, code){
     await modCategory.category.create(category)
 }
 async function get_category_by_code(categorycode){
-    console.log("CATEGORY CODE == id", categorycode);
     let category = await modCategory.category.findOne({where:{id : categorycode}});
-    console.log("CAT CONTROLLER",category);
     return category;
 }
 

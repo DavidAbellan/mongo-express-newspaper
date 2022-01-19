@@ -5,29 +5,38 @@ var contrColumn = require('../controllers/Column');
 
 async function page(pageNumber) {
      const pageSize = 10;
-     let offset = pageNumber * pageSize;
+     let offset = pageNumber;
      let limit = pageSize;
 
     let articles = await modArticle.article.findAll(
         {
-        order: ['createdAt'],
+        order: [['createdAt','DESC']],
         limit: limit,
-        skip: offset
+        offset: offset,
+        subQuery : false
 
     });
+    
 
     return articles;
 
 }
 async function column(pageNumber) {
+    if (pageNumber > 0) {
+        pageNumber = pageNumber/5;
+        
+    }
     const pageSize = 2;
-    let offset = pageNumber * pageSize;
+    let offset = pageNumber ;
     let limit = pageSize;
 
    let columns = await modColumn.opinion_column.findAll({
-    order: ['createdAt'],
+    order: [['createdAt','DESC']],
     limit: limit,
-    skip: offset
+    offset: offset,
+    subQuery : false
+
+
 
 });
 

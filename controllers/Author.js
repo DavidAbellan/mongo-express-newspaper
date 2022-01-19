@@ -8,7 +8,7 @@ async function get_authors(){
 async function get_author_by_id(id){
     return await modAuthor.author.findByPk(id);
 }
-async function set_author(name,username,password,root){
+async function set_author(name,username,password,root,description){
     let crPassword = await crypt.hash(password,3)
     let id =name[0] + idgen.get_random_id() + username[0];
     let author = new Object( {
@@ -16,32 +16,33 @@ async function set_author(name,username,password,root){
         name,
         username ,
         password : crPassword,
-        root
+        root,
+        description
     })
 
     return await modAuthor.author.create(author);
    
 }
 async function get_id_by_username (username){
-    let user = await modAuthor.author.findOne({username:username});
+    let user = await modAuthor.author.findOne({where :{username:username}});
     return user.id;
 }
 async function get_author(userc, password){
-    let user = await modAuthor.author.findOne( {username:userc});
+    let user = await modAuthor.author.findOne( {where :{username:userc}});
     if (!user) {
         return undefined;
     } else {
 
-        /*let dsPassword = await crypt.compare(password,user.password);
-        //if(!dsPassword){
+        let dsPassword = await crypt.compare(password,user.password);
+        if(!dsPassword){
             return undefined;
         }
          if(!password){
             return undefined    
-        }else {*/
+        }else {
             return user;
     }}
-    //}
+    }
 
 
 async function update_author(id,author){

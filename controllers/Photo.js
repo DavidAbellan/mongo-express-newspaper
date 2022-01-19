@@ -13,8 +13,12 @@ async function get_main_photo (artId){
     let principal = await mod.photo.findOne({where : {articleId : artId}});
     return principal;
 }
+async function delete_photos_from_article(articleID){
+    return await mod.photo.destroy({where : {articleId : articleID}});
+}
 
 module.exports = {
+    delete_photos_from_article,
     set_photo,
     get_main_photo,
     set_photos

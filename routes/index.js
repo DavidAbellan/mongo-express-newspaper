@@ -13,31 +13,19 @@ var moment = require('moment');
 var pagination = require('../helpers/page');
 var search_fun = require('../helpers/search_post');
 var ls = require('local-storage');
+var searchModule = require('../helpers/search_module');
 var page ;
 let articles = [];
-var nextPage = true ;
-var backPage = false;
 
 /* GET home page. */
-router.get('/', async function(req, res, next) {
-    
-    if (!ls.get('page')|| page === 0){
-        ls.set('page',0);
+router.get('/:page?', async function(req, res, next) {
+    if (req.params.page == undefined|| !req.params.page){
         page = 0;
-        backPage=false;
     }else {
-        page = ls.get('page');
-        backPage = true;
+        page = req.params.page.charAt(6) + req.params.page.charAt(7);
+        page = Number(page);
     }
-    let total_pages = await pagination.total_pages();
-    total_pages = Math.ceil(total_pages);
-    total_pages --;
     
-    if (total_pages <= (page + 1)  ) {
-        nextPage = false; 
-    } else {
-        nextPage = true;
-    }
     let art = await pagination.page(page);
     articles = await formatArt.format(art);
     let timer = moment().format('MMMM Do YYYY, h:mm:ss a');
@@ -45,30 +33,15 @@ router.get('/', async function(req, res, next) {
     columns = await formatCol.format(columns)
     let authors = await authorController.get_authors();
     let categories = await categoryControl.get_categories();
-    let user = req.session.username;
-    if (!user){
+    
     res.send({
         timer,
         articles,
         columns,
         categories,
-        authors,
-        nextPage,
-        backPage
+        authors
         
-        })} 
-    else {
-        res.render('index', {
-            timer,
-            articles,
-            columns,
-            user,
-            categories,
-            authors,
-            nextPage,
-            backPage
-           
-        })} 
+        })
 
     });
 router.get('/next', function(req,res,next){
@@ -153,6 +126,12 @@ router.get('/col/:id', async(req,res,next)=>{
     })
 
 
+})
+router.get('/search/:n', async (req,res,next)=>{
+    let articles = await searchModule.search(req.params.n);
+    res.send({
+        articles
+    })
 })
 
 

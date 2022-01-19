@@ -7,7 +7,6 @@ async function get_categories_from_article(articleId) {
    let id = articleId;  
    let artRelation = await mod.article_category.findAll({where :
      {articleId : id}});
-   //ArtRelation es un array con un registro con objeto de objetos
    let categories = [];
        
     for(let i = 0; i < artRelation.length; i ++) {
@@ -32,7 +31,11 @@ var relation = new Object ({
 });
 await mod.article_category.create(relation);
 }
+async function delete_relationship_article(idArticle){
+    return await mod.article_category.destroy({where :{articleId : idArticle}});
+}
 module.exports = {
+    delete_relationship_article,
     set_relationship_article_category,
     get_categories_from_article
 }

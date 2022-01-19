@@ -5,7 +5,7 @@
         <select name="article">
             <option value="" disabled selected>Artículos</option>
             {{#each articles}}
-             <option  value={{_id}}>{{title}}...{{upload_at}}</option>
+             <option  value={{id}}>{{title}}...{{uploadAt}}</option>
             {{/each}}
 
 
@@ -31,7 +31,7 @@
         <select name="column">
             <option value="" disabled selected>Columnas</option>
             {{#each columns}}
-             <option value={{_id}}>{{title}}...{{upload_at}}</option>
+             <option value={{id}}>{{title}}...{{upload_at}}</option>
             {{/each}}
 
 

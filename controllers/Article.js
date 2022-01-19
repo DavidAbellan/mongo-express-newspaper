@@ -1,4 +1,5 @@
 var mod = require('../models');
+var Sequelize = require('sequelize');
 
 
 async function update_article(id,article){
@@ -38,12 +39,21 @@ async function set_article(article) {
 
 }
 async function remove_article(id){
-    return await mod.article.findByPk(id).destroy();
+    return await mod.article.destroy({where :{id : id}});
 }
 async function get_article_by_id(id){
     return await mod.article.findByPk(id);
 }
+async function search_by_term(term){
+    const Op = Sequelize.Op;
+    return await mod.article.findAll({where :{
+        title : {
+        [Op.like]: '%' + term + '%'/*'%`${term}%`'*/ 
+        }
+    }});
+}
 module.exports = {
+    search_by_term,
     get_articles_by_category,
     get_articles,
     set_article,
