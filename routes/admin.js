@@ -73,7 +73,7 @@ router.post('/new', isLogged, upload.array('file',3),async function(req,res,next
             outstanding : art
         });
             
-       
+     
         
     if (req.files.length !== 0 && req.files != undefined) {
             pictures =req.files;
@@ -83,6 +83,9 @@ router.post('/new', isLogged, upload.array('file',3),async function(req,res,next
             }
             await photoControl.set_photos(pictures);
          
+        } else {
+             await photoControl.set_photo(artID);
+
         }
 
     if(typeof categories === 'string' || categories instanceof String) {

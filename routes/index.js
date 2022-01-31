@@ -1,10 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var article_control = require('../controllers/Article');
+var add_categories = require('../helpers/add_categories_to_article');
 var column_control = require('../controllers/Column');
 var categoryControl = require('../controllers/Category');
 var authorController = require('../controllers/Author');
 var formatArt = require('../helpers/format_article');
+var getPhotos = require('../helpers/get_pictures_from_article');
 var formatCol = require('../helpers/format_column');
 var formatHour = require('../helpers/format_hour');
 var getAllFromCtgry = require('../helpers/get_all_from_category');
@@ -105,15 +107,19 @@ router.get('/hst/:code',async function(req,res,next){
 router.get('/art/:id' ,async function(req,res,next){
     let article = await article_control.get_article_by_id(req.params.id);
     let author = await authorController.get_author_by_id(article.author_id);
-    let time = formatHour.format(article.upload_at);
-    let category =  await categoryControl.get_category_by_code(article.category_code);
+    let time = formatHour.format(article.updatedAt);
+    let categories =  await add_categories.get_categories(article.id); 
+    article.categories = categories;
     let posts =  await getRelArt.get_related(article);
-    res.render('artDetail', {
-        category,
+    let photos = await getPhotos.get_photos(article.id);
+    /*hay que enviar las fotos aparte */
+    res.send( {
+        photos,
         article,
         author,
         time,
-        posts
+        posts,
+        categories
     })
 
 })
@@ -129,6 +135,7 @@ router.get('/col/:id', async(req,res,next)=>{
 })
 router.get('/search/:n', async (req,res,next)=>{
     let articles = await searchModule.search(req.params.n);
+    console.log("ARTICLES",articles);
     res.send({
         articles
     })

@@ -26,18 +26,19 @@ async function format (articles){
      } 
      article_f.reverse(); 
 
-
-    article_f.sort((a)=>{
-    if(a.outstanding == true){
-        return -1;
-    } else {
-        return 1;
-    }
-    return 0;
-    }) 
+     
+     article_f.sort((a,b)=> a.created<b.created )
+     
+     article_f.sort((a)=>{
+         if(a.outstanding == true){
+             return -1;
+            } else {
+                return 1;
+            }
+            return 0;
+        }) 
     return article_f;
 
-    //devolver nombre categoria --- si se hace asíncrona no carga las noticias
 
 
 }

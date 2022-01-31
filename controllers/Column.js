@@ -21,7 +21,9 @@ async function get_columns() {
     return await modColumn.opinion_column.findAll();
 }
 async function get_column_by_author(authorID) {
-    return await modColumn.opinion_column.findByPk({author:authorID});
+    let id = authorID
+    let columns = await modColumn.opinion_column.findAll({where :{author_id:id}});
+    return columns
 
 }
 
