@@ -1,14 +1,9 @@
-const { post } = require("jquery");
 var articleController = require("../controllers/Article");
 var columnController = require("../controllers/Column");
 var photoController = require("../controllers/Photo");
 
 async function search(term){
     let articles = await articleController.search_by_term(term);
-    let columns = await columnController.search_by_term(term);
-    /*formatear aquí para devolver 
-    un mismo tipo para la caja de busqueda*/
-
     const posts = await Promise.all(
         articles.map(async (art) => {
              return await photoController.get_main_photo(art.id);
@@ -22,15 +17,14 @@ async function search(term){
             } 
         }
     }
-
-   
-    
-
-    return articles;
-
+return articles;
+}
+async function getColums( author_id){
+    return await columnController.get_column_by_author(author_id);
 
 }
 
 module.exports = {
-    search
+    search,
+    getColums
 }

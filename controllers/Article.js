@@ -16,6 +16,7 @@ async function update_article(id,article){
 async function get_articles(){
     return await mod.article.findAll();
 }
+
 async function get_articles_by_category(code){
     return await mod.article.find({category_code : code});
 

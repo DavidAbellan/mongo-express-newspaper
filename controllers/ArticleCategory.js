@@ -14,6 +14,15 @@ async function get_two_articles_from_category(categoryId){
     
     return catRelation;
 }
+async function get_ArtCatData_from_CatId(catid){
+    let artCatData =  await mod.article_category.findAll({
+        where: {
+            categoryId: catid
+        }
+    }); 
+    return artCatData;
+}
+
 async function get_categories_from_article(articleId) {
     let id = articleId;
     let artRelation = await mod.article_category.findAll({
@@ -53,6 +62,7 @@ async function delete_relationship_article(idArticle) {
     });
 }
 module.exports = {
+    get_ArtCatData_from_CatId,
     delete_relationship_article,
     set_relationship_article_category,
     get_categories_from_article,

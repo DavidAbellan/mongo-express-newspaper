@@ -9,10 +9,6 @@ async function get_related(article) {
  for (cat of article.categories){
      categories.push(cat);
  }
- /*vas por aquí , arreglando esto para que devuelva 
- los articulos de cada categoria
- a lo mejor enviar dos articulos de cada categoria */
-
  for (cat of categories){
      let p = await getAllfromCat.gimmeTwoToOf(cat[1]);
      if (p.length>0){
@@ -38,7 +34,6 @@ async function get_related(article) {
  }
  for(word of keywords) {
     let postRelated = await getPost.search(word) ;
-    console.log("posytare",postRelated);
     postRelated.map(art => {
          if(art.id != article.id){    
          related.push(art) }});
@@ -46,6 +41,8 @@ async function get_related(article) {
  if (related.length > 0){ 
     related.map(art => posts.push(art));
  }
+ posts.push(await getPost.getColums(article.author_id));
+
  return posts;
  
 

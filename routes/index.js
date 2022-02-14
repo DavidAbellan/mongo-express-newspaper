@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var article_control = require('../controllers/Article');
 var add_categories = require('../helpers/add_categories_to_article');
+var getAuthorPhoto = require('../helpers/get_photo_from_author');
 var column_control = require('../controllers/Column');
 var categoryControl = require('../controllers/Category');
 var authorController = require('../controllers/Author');
@@ -78,6 +79,14 @@ router.post('/search', async function(req,res,next) {
     
     
 } ) 
+router.get('/col/allfrom/:idauthor', async function(req,res,next){
+    let idauthor = req.params.idauthor;
+    let colums = await column_control.get_column_by_author(idauthor);
+    res.send({
+      colums  
+    })
+
+});
 router.get('/hst/:code',async function(req,res,next){
     let code = req.params.code;
     let categoryName;
@@ -112,8 +121,9 @@ router.get('/art/:id' ,async function(req,res,next){
     article.categories = categories;
     let posts =  await getRelArt.get_related(article);
     let photos = await getPhotos.get_photos(article.id);
-    /*hay que enviar las fotos aparte */
+    let authorPhoto = await getAuthorPhoto.return_picture(author.id);
     res.send( {
+        authorPhoto,
         photos,
         article,
         author,
@@ -123,23 +133,40 @@ router.get('/art/:id' ,async function(req,res,next){
     })
 
 })
+router.get('/cat/:id', async (req,res,next) => {
+    let articles = await getAllFromCtgry.getPosts(req.params.id);
+    
+res.send({
+        articles
+    })
+
+})
 router.get('/col/:id', async(req,res,next)=>{
     let column = await column_control.get_column_by_id(req.params.id);
-    let author = await authorController.get_author_by_id(column.author);
-    res.render('colDetail',{
+    let author = await authorController.get_author_by_id(column.author_id);
+    let authorPhoto = await getAuthorPhoto.return_picture(author.id);
+    
+    res.send({
         author,
-        column
+        column,
+        authorPhoto
     })
 
 
 })
 router.get('/search/:n', async (req,res,next)=>{
     let articles = await searchModule.search(req.params.n);
-    console.log("ARTICLES",articles);
     res.send({
         articles
     })
 })
+
+router.get('/getpicture/:idArticle', async (req,res,next) =>{
+    let photos = await getPhotos.get_photos(req.params.idArticle);
+    res.send({
+        photos
+    })
+} )
 
 
 module.exports = router;
