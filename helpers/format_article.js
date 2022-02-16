@@ -5,9 +5,10 @@ async function format (articles){
     let article_f = [];
     for(article of articles){
         let author = await authorController.get_author_by_id(article.author_id);
+        const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+        const dias_semana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
         var fecha = new Date(article.updatedAt);
-        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        fecha = fecha.toLocaleDateString("ES-es",options);
+        fecha = String(dias_semana[fecha.getDay()] + ', ' + fecha.getDate() + ' de ' + meses[fecha.getMonth()] + ' de ' + fecha.getUTCFullYear());
         let art = {
             title : article.title,
             id : article.id ,

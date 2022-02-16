@@ -16,14 +16,11 @@ router.get('/users',isLogged , async (req,res) =>{
    })
 
 })
-router.get('/erase/:id', isLogged, async function(req,res){
+router.post('/erase/:id', isLogged, async function(req,res){
     await authorController.remove_author(req.params.id);
-    let authors = await authorController.get_authors();
-    res.render('users', {
-        authors
-    })
- })
- router.post('/mod/:id',isLogged,upload.single('file',1),async function(req,res){
+    res.render('index');
+})
+router.post('/mod/:id',isLogged,upload.single('file',1),async function(req,res){
     let pictures;
     let author;
     pictures =req.file;
@@ -44,8 +41,6 @@ router.get('/erase/:id', isLogged, async function(req,res){
 
             
 })
-
-
 router.get('/modify/:id',isLogged, async function(req,res){
     let author = await authorController.get_author_by_id(req.params.id);
     res.render('authmod', {
@@ -53,14 +48,9 @@ router.get('/modify/:id',isLogged, async function(req,res){
     })
     
 })
-
-   
-
-
 router.get('/category', isLogged, function(req,res){
     res.render('category');
 })
-
 router.post('/category',isLogged, async function(req,res){
     let name = req.body.name;
     let catlenght = await long.large() + 1;
@@ -79,7 +69,7 @@ router.post('/category',isLogged, async function(req,res){
 })
 router.get('/create', isLogged, function(req,res){
     res.render('author');
-} );
+});
 router.post('/create',isLogged, upload.single('file'), async function(req,res){
     let name= req.body.name;
     let username = req.body.username;

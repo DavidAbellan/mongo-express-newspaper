@@ -59,7 +59,7 @@ async function update_author(id,author){
     }
 
     
-    return await modAuthor.author.update({_id : id}, 
+    return await modAuthor.author.update({id : id}, 
         {
             name : author.name,
             username : author.username,

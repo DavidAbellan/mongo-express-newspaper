@@ -1,0 +1,43 @@
+<form method="POST" action="/create" enctype="multipart/form-data">
+<div class="row">
+        <div class="input-field col s6">
+          <input name="name"  placeholder="Placeholder" id="first_name" type="text" class="validate">
+          <label for="first_name">Nombre Completo</label>
+        </div>
+        <div class="input-field col s6">
+          <input name="username" id="last_name" type="text" class="validate">
+          <label for="last_name">Nombre Autor</label>
+        </div>
+      </div>
+      <div class="form-group">
+    <label for="exampleFormControlTextarea1">Example textarea</label>
+    <textarea  name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+  </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input name="password" placeholder="Placeholder" id="first_name" type="text" class="validate">
+          <label for="first_name">Password</label>
+        </div>
+        <div class="input-field col s6">
+          <input name="rpassword" id="last_name" type="text" class="validate">
+          <label for="last_name">repite Password</label>
+        </div>
+      </div>
+      <div class="input-field col s6">
+            <input name="file" type="file" class="validate" >
+            <label for="file"></label>
+        </div>
+      <div class="switch">
+          <p>Super-admin</p>
+    <label>
+      Off
+      <input name="switch" type="checkbox">
+      <span class="lever"></span>
+      On
+    </label>
+  </div>
+       <button class="btn waves-effect waves-light" type="submit" name="action">Envía
+          <i class="material-icons right">send</i>
+      </button>
+        
+</form>

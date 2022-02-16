@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var upload = require('../config/multer');
+var setPicture = require('../helpers/set_avatar_from_author');
 var article_control = require('../controllers/Article');
 var add_categories = require('../helpers/add_categories_to_article');
 var getAuthorPhoto = require('../helpers/get_photo_from_author');
@@ -31,7 +33,11 @@ router.get('/:page?', async function(req, res, next) {
     
     let art = await pagination.page(page);
     articles = await formatArt.format(art);
-    let timer = moment().format('MMMM Do YYYY, h:mm:ss a');
+    const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    const dias_semana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    let fecha = new Date() 
+    let timer = String(dias_semana[fecha.getDay()] + ', ' + fecha.getDate() + ' de ' + meses[fecha.getMonth()] + ' de ' + fecha.getUTCFullYear());
+
     let columns = await pagination.column(page);
     columns = await formatCol.format(columns)
     let authors = await authorController.get_authors();
@@ -78,7 +84,7 @@ router.post('/search', async function(req,res,next) {
 
     
     
-} ) 
+}) 
 router.get('/col/allfrom/:idauthor', async function(req,res,next){
     let idauthor = req.params.idauthor;
     let colums = await column_control.get_column_by_author(idauthor);
@@ -111,8 +117,7 @@ router.get('/hst/:code',async function(req,res,next){
 
 
     
-} )  
-
+}) 
 router.get('/art/:id' ,async function(req,res,next){
     let article = await article_control.get_article_by_id(req.params.id);
     let author = await authorController.get_author_by_id(article.author_id);
@@ -160,13 +165,35 @@ router.get('/search/:n', async (req,res,next)=>{
         articles
     })
 })
-
 router.get('/getpicture/:idArticle', async (req,res,next) =>{
     let photos = await getPhotos.get_photos(req.params.idArticle);
     res.send({
         photos
     })
-} )
+})
+router.get('/create/first/author',function(req,res,next){
+    res.render('authorFirst');
+});
+router.post('/create', upload.single('file'), async function(req,res,next){
+    let name= req.body.name;
+    let username = req.body.username;
+    let password = req.body.password;
+    let description = req.body.description;
+    let superAdmin= false;
+    console.log("entra" , req.body)
+    if(req.body.switch ==='on'){
+        superAdmin = true
+    }
+    if (password !== req.body.rpassword){
+        res.render('authorFirst')
+    } else {
+        let newauthor = await authorController.set_author(name,username,password,superAdmin,description);
+        await setPicture.set_avatar(req.file, newauthor.id);
+        res.render('authorFirst')
 
+    }
+
+
+})
 
 module.exports = router;
