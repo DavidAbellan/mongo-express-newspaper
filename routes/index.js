@@ -5,16 +5,17 @@ var setPicture = require('../helpers/set_avatar_from_author');
 var article_control = require('../controllers/Article');
 var add_categories = require('../helpers/add_categories_to_article');
 var getAuthorPhoto = require('../helpers/get_photo_from_author');
+var getAllFrom = require('../helpers/get_all_from_author');
 var column_control = require('../controllers/Column');
 var categoryControl = require('../controllers/Category');
 var authorController = require('../controllers/Author');
 var formatArt = require('../helpers/format_article');
+var getAuthors = require('../helpers/get_authors');
 var getPhotos = require('../helpers/get_pictures_from_article');
 var formatCol = require('../helpers/format_column');
 var formatHour = require('../helpers/format_hour');
 var getAllFromCtgry = require('../helpers/get_all_from_category');
 var getRelArt = require('../helpers/get_related_articles');
-var moment = require('moment');
 var pagination = require('../helpers/page');
 var search_fun = require('../helpers/search_post');
 var ls = require('local-storage');
@@ -140,7 +141,7 @@ router.get('/art/:id' ,async function(req,res,next){
 })
 router.get('/cat/:id', async (req,res,next) => {
     let articles = await getAllFromCtgry.getPosts(req.params.id);
-    
+    articles.reverse();
 res.send({
         articles
     })
@@ -194,6 +195,21 @@ router.post('/create', upload.single('file'), async function(req,res,next){
     }
 
 
+});
+router.get('/author/:id', async (req,res,next)=>{
+    let related = await getAllFrom.getPosts(req.params.id);
+    res.send({
+        related
+    });
+
+    
+});
+router.get('/authors',async (req,res,next) =>{
+    let authors= await getAuthors.get_all_authors();
+    console.log("AUTHORS", authors);
+    res.send({
+        authors
+    })
 })
 
 module.exports = router;

@@ -16,14 +16,16 @@ router.get('/users',isLogged , async (req,res) =>{
    })
 
 })
-router.post('/erase/:id', isLogged, async function(req,res){
+router.get('/erase/:id', isLogged, async function(req,res){
     await authorController.remove_author(req.params.id);
     res.render('index');
 })
 router.post('/mod/:id',isLogged,upload.single('file',1),async function(req,res){
     let pictures;
     let author;
+    if (req.file != undefined){
     pictures =req.file;
+    }
     let password = req.body.password;
      author = new Object (
          {

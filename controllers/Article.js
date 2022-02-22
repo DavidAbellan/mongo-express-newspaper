@@ -53,7 +53,13 @@ async function search_by_term(term){
         }
     }});
 }
+async function get_articles_by_author(authorID){
+    return await mod.article.findAll({where :{
+        author_id : authorID 
+    }});
+}
 module.exports = {
+    get_articles_by_author,
     search_by_term,
     get_articles_by_category,
     get_articles,
