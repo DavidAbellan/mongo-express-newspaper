@@ -175,13 +175,12 @@ router.get('/getpicture/:idArticle', async (req,res,next) =>{
 router.get('/create/first/author',function(req,res,next){
     res.render('authorFirst');
 });
-router.post('/create', upload.single('file'), async function(req,res,next){
+router.post('/create/author', upload.single('file'), async function(req,res,next){
     let name= req.body.name;
     let username = req.body.username;
     let password = req.body.password;
     let description = req.body.description;
     let superAdmin= false;
-    console.log("entra" , req.body)
     if(req.body.switch ==='on'){
         superAdmin = true
     }
@@ -204,9 +203,8 @@ router.get('/author/:id', async (req,res,next)=>{
 
     
 });
-router.get('/authors',async (req,res,next) =>{
+router.get('/authors/get',async (req,res,next) =>{
     let authors= await getAuthors.get_all_authors();
-    console.log("AUTHORS", authors);
     res.send({
         authors
     })
