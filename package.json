@@ -1,9 +1,9 @@
 {
   "name": "backend-fakenews",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-     "start": "nodemon  ./bin/www -e html,hbs,js"
+     "start": "node ."
   },
   "dependencies": {
     "bcrypt": "^3.0.6",
