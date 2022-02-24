@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-     "start": "npm install & nodemon  ./bin/www -e html,hbs,js"
+     "start": "nodemon  ./bin/www -e html,hbs,js"
   },
   "dependencies": {
     "bcrypt": "^3.0.6",
