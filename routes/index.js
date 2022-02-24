@@ -203,7 +203,7 @@ router.get('/author/:id', async (req,res,next)=>{
 
     
 });
-router.get('handm#authors/get',async (req,res,next) =>{
+router.get('/authors/get',async (req,res,next) =>{
     let authors= await getAuthors.get_all_authors();
     res.send({
         authors
