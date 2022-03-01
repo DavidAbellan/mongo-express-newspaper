@@ -11,7 +11,6 @@ var flash = require('connect-flash');
 var hbs = require('hbs');
 var cors = require('cors');
 
-const port = process.env.PORT || 443;
 
 var app = express();
 
