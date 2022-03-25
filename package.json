@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-     "start": "node app"
+     "start": "node app  ./bin/www -e html,hbs,js"
   },
   "dependencies": {
     "bcrypt": "^3.0.6",
