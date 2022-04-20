@@ -9,8 +9,7 @@
     test : {
       dialect:'mysql',
       storage: ':memory;'
-   } }*/
-  
+   } }
   module.exports = {
     development : {
         dialect : 'mysql',
@@ -20,4 +19,12 @@
         host:'eu-cdbr-west-02.cleardb.net'
     },
     
-  }
+  }*/
+  module.exports = {
+    development : {
+        dialect : 'mysql',
+        username: 'ubqlnkaampxvtcxo',
+        password: 'gI95oy9XUdu2BHNnNoVn',
+        database: 'bgoevy9bo6i2ho45hfzi',
+        host:'bgoevy9bo6i2ho45hfzi-mysql.services.clever-cloud.com'
+    },}

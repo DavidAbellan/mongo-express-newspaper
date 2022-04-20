@@ -44,8 +44,7 @@ router.post('/', async function(req, res, next) {
         
      }
 
-    );
-
+);
 router.get('/login', async function(req,res,next){
 res.render('admin');
 })
