@@ -24,7 +24,8 @@ async function set_author(name, username, password, root, description) {
 
 }
 async function get_id_by_username(username) {
-    let user = await modAuthor.author.findOne({
+    let user;
+    user = await modAuthor.author.findOne({
         where: {
             username: username
         }
