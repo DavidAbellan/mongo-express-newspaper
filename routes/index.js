@@ -172,9 +172,9 @@ router.get('/getpicture/:idArticle', async (req,res,next) =>{
         photos
     })
 })
-router.get('/create/first/author',function(req,res,next){
+/*router.get('/create/first/author',function(req,res,next){
     res.render('authorFirst');
-});
+});*/
 router.post('/create/author', upload.single('file'), async function(req,res,next){
     let name= req.body.name;
     let username = req.body.username;
