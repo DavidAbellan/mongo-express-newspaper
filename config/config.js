@@ -27,5 +27,4 @@
         password: 'gI95oy9XUdu2BHNnNoVn',
         database: 'bgoevy9bo6i2ho45hfzi',
         host:'bgoevy9bo6i2ho45hfzi-mysql.services.clever-cloud.com',
-        socketPath: '/var/run/mysqld/mysqld.sock'
     },}
